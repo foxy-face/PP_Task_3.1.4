@@ -15,13 +15,13 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepozitory userRepozitory;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Lazy
     @Autowired
-    public UserServiceImpl(UserRepozitory userRepozitory, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepozitory userRepozitory, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepozitory = userRepozitory;
-        this.passwordEncoder = passwordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -41,14 +41,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void add(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepozitory.save(user);
     }
 
     @Override
     public void update(Long id, User user) {
         if (user.getPassword() != "") {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         } else {
             user.setPassword(userRepozitory.getById(id).getPassword());
         }
