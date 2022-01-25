@@ -1,6 +1,5 @@
 package com.example.pptaskspringboot.security;
 
-import com.example.pptaskspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
-
 
 @Configuration
 @EnableWebSecurity
@@ -41,6 +40,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setEncoding("UTF-8");
         filter.setForceEncoding(true);
         http.addFilterBefore(filter, CsrfFilter.class);
+
+        http.formLogin()
+                // указываем страницу с формой логина
+                .loginPage("/login")
+                //указываем логику обработки при логине
+                .successHandler(successUserHandler)
+                // указываем action с формы логина
+                .loginProcessingUrl("/login")
+                // Указываем параметры логина и пароля с формы логина
+                .usernameParameter("Provided username")
+                .passwordParameter("Provided password")
+                // даем доступ к форме логина всем
+                .permitAll();
+
+
+        http.logout()
+                // разрешаем делать логаут всем
+                .permitAll()
+                // указываем URL логаута
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                // указываем URL при удачном логауте
+                .logoutSuccessUrl("/login")
+                //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
+                .and().csrf().disable();
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll() // доступность всем

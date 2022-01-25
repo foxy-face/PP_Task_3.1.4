@@ -1,11 +1,12 @@
 package com.example.pptaskspringboot.service;
 
+import com.example.pptaskspringboot.dao.RoleRepozitory;
 import com.example.pptaskspringboot.dao.UserRepozitory;
+import com.example.pptaskspringboot.model.Role;
 import com.example.pptaskspringboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,15 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class AppServiceImpl implements AppService {
     private final UserRepozitory userRepozitory;
+    private final RoleRepozitory roleRepozitory;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Lazy
     @Autowired
-    public UserServiceImpl(UserRepozitory userRepozitory, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AppServiceImpl(UserRepozitory userRepozitory, RoleRepozitory roleRepozitory,
+                          BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepozitory = userRepozitory;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.roleRepozitory = roleRepozitory;
     }
 
     @Override
@@ -63,6 +67,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUserByEmail(String email) {
         return userRepozitory.findAllByEmail(email);
+    }
+
+    @Override
+    public Role getRoleByName(String roleName) {
+        return roleRepozitory.findByRoleName(roleName);
     }
 
     @Override
