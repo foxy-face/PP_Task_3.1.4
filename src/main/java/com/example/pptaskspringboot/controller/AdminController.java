@@ -29,17 +29,17 @@ public class AdminController {
         return "/admin";
     }
 
-    @GetMapping("/{id}")
-    public String showUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", appService.show(id));
-        return "/user";
-    }
+//    @GetMapping("/{id}")
+//    public String showUser(@PathVariable("id") Long id, Model model) {
+//        model.addAttribute("user", appService.show(id));
+//        return "/user";
+//    }
 
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "/new";
-    }
+//    @GetMapping("/new")
+//    public String newUser(Model model) {
+//        model.addAttribute("user", new User());
+//        return "/new";
+//    }
 
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user,
@@ -55,15 +55,24 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", appService.show(id));
-        return "/edit";
-    }
+//    @GetMapping("/{id}/edit")
+//    public String edit(@PathVariable("id") Long id, Model model) {
+//        model.addAttribute("user", appService.show(id));
+//        return "/edit";
+//    }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        appService.update(id, user);
+    public String updateUser(@ModelAttribute("user") User user,
+                             @RequestParam(name = "role") String [] roles) {
+        Set <Role> roleSet = new HashSet<>();
+
+        if (roles != null){
+            for (String role: roles){
+                roleSet.add(appService.getRoleByName(role));
+            }
+        }
+        user.setRoles(roleSet);
+        appService.update(user);
         return "redirect:/admin";
     }
 

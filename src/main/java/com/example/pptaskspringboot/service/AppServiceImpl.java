@@ -50,11 +50,9 @@ public class AppServiceImpl implements AppService {
     }
 
     @Override
-    public void update(Long id, User user) {
+    public void update(User user) {
         if (user.getPassword() != "") {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        } else {
-            user.setPassword(userRepozitory.getById(id).getPassword());
         }
         userRepozitory.save(user);
     }

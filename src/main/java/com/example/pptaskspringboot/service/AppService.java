@@ -10,7 +10,7 @@ public interface AppService extends UserDetailsService {
     List<User> getAllUsers();
     User show(Long id);
     void add(User user);
-    void update(Long id, User user);
+    void update(User user);
     void delete(Long id);
     User getUserByEmail(String email);
     Role getRoleByName(String roleName);
