@@ -45,10 +45,10 @@
     </div>
 </nav>
 
-<!--вся панель из 12 колонок, разбиваем её на col-md-2 + col-md-10-->
+<!--Контейнер (container-fluid - на всю ширину) - вся панель из 12 колонок, разбиваем её на col-md-2 + col-md-10-->
 <div class="container-fluid">
     <div class="row">
-        <!--        левая часть админ-панели из 2 колонок строки на всю ширину-->
+        <!--Левая часть админ-панели из 2 колонок строки на всю ширину-->
         <div class="col-lg-2 px-0">
             <!--            nav-pills - подушка для подсвечивания-->
             <ul class="nav nav-pills flex-column">
@@ -61,7 +61,7 @@
                 </li>
             </ul>
         </div>
-        <!--        правая часть админ-панели из 10 колонок строки на всю ширину-->
+        <!--Правая часть админ-панели из 10 колонок строки на всю ширину-->
         <div class="col-lg-10 bg-light vh-100 px-3">
             <h1>Admin panel</h1>
 
@@ -120,7 +120,7 @@
                                     </button>
                                 </td>
 
-                                <!--                        Модальный элемент с id=”editUser”-->
+                                <!--Модальный элемент с id=”editUser”-->
                                 <div class="modal fade" th:id="${'editUser'+ user.id}" tabindex="-1" role="dialog"
                                      aria-hidden="true">
                                     <div class="modal-dialog">
@@ -189,9 +189,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--Конец модального окна Edit-->
+                                <!-------------------------------------------------------------------------------------->
 
-                                <!--Модальное окно Delete-->
+                                <!--Модальный элемент с id=”deleteUser”-->
                                 <div class="modal fade"
                                      th:id="${'deleteUser'+ user.id}"
                                      tabindex="-1" role="dialog"
@@ -262,14 +262,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--                        (КОНЕЦ) Modal window (модальное окно для УДАЛЕНИЯ пользователя-->
+                                <!----------------------------------------------------------------------------------->
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!--Второй блок - добавление пользователя>-->
+                <!--Вкладка New User-->
                 <div class="tab-pane fade" id="newUser">
                     <h5 class="card-header">New user</h5>
                     <br>
