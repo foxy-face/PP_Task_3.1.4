@@ -5,9 +5,6 @@ import com.example.pptaskspringboot.dao.UserRepozitory;
 import com.example.pptaskspringboot.model.Role;
 import com.example.pptaskspringboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -19,7 +16,6 @@ public class AppServiceImpl implements AppService {
     private final RoleRepozitory roleRepozitory;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Lazy
     @Autowired
     public AppServiceImpl(UserRepozitory userRepozitory, RoleRepozitory roleRepozitory,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -70,10 +66,5 @@ public class AppServiceImpl implements AppService {
     @Override
     public Role getRoleByName(String roleName) {
         return roleRepozitory.findByRoleName(roleName);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepozitory.findAllByEmail(email);
     }
 }

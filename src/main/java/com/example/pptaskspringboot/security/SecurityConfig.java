@@ -1,7 +1,6 @@
 package com.example.pptaskspringboot.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,20 +17,23 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailService;
     private final SuccessUserHandler successUserHandler;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public SecurityConfig(UserDetailsService userDetailService, SuccessUserHandler successUserHandler) {
+    public SecurityConfig(UserDetailsService userDetailService, SuccessUserHandler successUserHandler,
+                          BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailService = userDetailService;
         this.successUserHandler = successUserHandler;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override

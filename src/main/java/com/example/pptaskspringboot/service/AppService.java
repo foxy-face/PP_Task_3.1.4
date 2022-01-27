@@ -2,11 +2,9 @@ package com.example.pptaskspringboot.service;
 
 import com.example.pptaskspringboot.model.Role;
 import com.example.pptaskspringboot.model.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-
 import java.util.List;
 
-public interface AppService extends UserDetailsService {
+public interface AppService {
     List<User> getAllUsers();
     User show(Long id);
     void add(User user);
