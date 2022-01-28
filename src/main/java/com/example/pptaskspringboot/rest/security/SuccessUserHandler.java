@@ -1,4 +1,4 @@
-package com.example.pptaskspringboot.security;
+package com.example.pptaskspringboot.rest.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

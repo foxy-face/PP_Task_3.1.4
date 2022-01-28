@@ -1,9 +1,9 @@
-package com.example.pptaskspringboot.service;
+package com.example.pptaskspringboot.rest.service;
 
-import com.example.pptaskspringboot.dao.RoleRepozitory;
-import com.example.pptaskspringboot.dao.UserRepozitory;
-import com.example.pptaskspringboot.model.Role;
-import com.example.pptaskspringboot.model.User;
+import com.example.pptaskspringboot.rest.dao.RoleRepozitory;
+import com.example.pptaskspringboot.rest.dao.UserRepozitory;
+import com.example.pptaskspringboot.rest.model.Role;
+import com.example.pptaskspringboot.rest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

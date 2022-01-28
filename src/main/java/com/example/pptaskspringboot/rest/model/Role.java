@@ -1,5 +1,6 @@
-package com.example.pptaskspringboot.model;
+package com.example.pptaskspringboot.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -18,13 +19,19 @@ public class Role implements GrantedAuthority {
     @Column(name = "roleName")
     private String roleName;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> user;
 
     public Role() {
     }
 
-    public Role(String role_name) {
+    public Role(String roleName) {
+        if (roleName.contains("ROLE_ADMIN")){
+            this.id=1L;
+        } else if (roleName.contains("ROLE_USER")){
+            this.id=2L;
+        }
         this.roleName = roleName;
     }
 

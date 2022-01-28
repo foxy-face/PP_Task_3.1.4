@@ -1,6 +1,6 @@
-package com.example.pptaskspringboot.service;
+package com.example.pptaskspringboot.rest.service;
 
-import com.example.pptaskspringboot.dao.UserRepozitory;
+import com.example.pptaskspringboot.rest.dao.UserRepozitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,11 +1,13 @@
-package com.example.pptaskspringboot.model;
+package com.example.pptaskspringboot.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 // Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
@@ -28,7 +30,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "age")
-    private String age;
+    private Integer age;
 
     @Column(name = "email", unique = true)// уникальное значение
     private String email;
@@ -45,7 +47,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String first_name, String last_name, String password, String age, String email,
+    public User(String first_name, String last_name, String password, Integer age, String email,
                 Set<Role> roles) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -118,11 +120,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -138,7 +140,12 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(String roleName) {
+        this.roles = new HashSet<>();
+        if (roleName.contains("ROLE_ADMIN")){
+            this.roles.add(new Role ("ROLE_ADMIN"));
+        } else if (roleName.contains("ROLE_USER")){
+            this.roles.add(new Role ("ROLE_USER"));
+        }
     }
 }
