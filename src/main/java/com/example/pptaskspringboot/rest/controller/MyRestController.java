@@ -27,7 +27,7 @@ public class MyRestController {
     }
 
     @GetMapping("/users/{id}")
-    public User showUser(@PathVariable("id") Long id) {
+    public User showUser(@PathVariable Long id) {
         User user = appService.show(id);
         if (user == null) {
             throw new NoSuchUserException("There is no user with id = " + id + " in database");
@@ -48,7 +48,7 @@ public class MyRestController {
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+    public String deleteUser(@PathVariable Long id) {
         User user = appService.show(id);
         if (user == null) {
             throw new NoSuchUserException("There is no user with id = " + id + " in database");
@@ -56,5 +56,4 @@ public class MyRestController {
         appService.delete(id);
         return "User with id = " + id + " was delete";
     }
-
 }

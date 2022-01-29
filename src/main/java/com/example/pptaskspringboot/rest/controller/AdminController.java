@@ -1,33 +1,35 @@
-//package com.example.pptaskspringboot.rest.controller;
-//
-//import com.example.pptaskspringboot.rest.model.Role;
-//import com.example.pptaskspringboot.rest.model.User;
-//import com.example.pptaskspringboot.rest.service.AppService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.annotation.AuthenticationPrincipal;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//import java.util.HashSet;
-//import java.util.Set;
-//
-//@Controller
-//@RequestMapping("/admin")
-//public class AdminController {
+package com.example.pptaskspringboot.rest.controller;
+
+import com.example.pptaskspringboot.rest.model.Role;
+import com.example.pptaskspringboot.rest.model.User;
+import com.example.pptaskspringboot.rest.service.AppService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
 //    private final AppService appService;
 //
 //    @Autowired
 //    public AdminController(AppService appService) {
 //        this.appService = appService;
 //    }
-//
-//    @GetMapping()
-//    public String index(Model model, @AuthenticationPrincipal User user) {
-//        model.addAttribute("users",appService.getAllUsers());
+
+
+    @GetMapping()
+    public String index() {
+//        model.addAttribute("users", appService.getAllUsers());
 //        model.addAttribute("user", user);
 //        model.addAttribute("newUser", new User());
-//        return "/admin";
-//    }
+        return "/admin";
+    }
+}
 //
 ////    @GetMapping("/{id}")
 ////    public String showUser(@PathVariable("id") Long id, Model model) {
