@@ -1,56 +1,132 @@
+// async function getRowUsers() {
+//     try {
+//         const response = await fetch("http://localhost:8080/admin/users")
+//         const users = await response.json()
+//         console.log(users)
+//         if (users.length > 0) {
+//             let tempUsers = "";
+//             users.forEach((u) => {
+//                 tempUsers += `<tr>`;
+//                 <td>${u.id}</td>
+//                 <td>${u.firstName}</td>
+//                 <td>${u.lastName}</td>
+//                 <td>${u.age}</td>
+//                 <td>${u.email}</td>
+//                 <td>${u.roles}</td>
+//             </tr>
+//                 `
+//             })
+//             // Вставляет текстовое содержимое данного HTML-тега temp в атрибут с id="users"
+//             document.getElementById("users").innerHTML = tempUsers;
+//         }
+//     } catch (e) {
+//         console.error(e)
+//     }
+// }
 //
-// // Выполняет функцию, как только DOM(Document Object Model) полностью загрузился
-// $('document').ready(function() {
-//     /* Событию можно назначить обработчик, то есть функцию, которая сработает, как только событие
-//     произошло. Обработчик может быть назначен прямо в разметке, в атрибуте, который называется
-//     on(событие, функция-обработчик) */
-//     $('.table.btn-warning').on('click',function(event){
-//         // Отмена действия браузера (event-событие)
-//         event.preventDefault();
-//         // attr() получает/устанавливает значение атрибутов выбранных элементов
-//         var href= $(this).attr('href');
+// getRowUsers();
 //
-//         $.get(href, function(user, status){
-//             $('#IdEdit').val(user.id);
-//             $('#FirstNameEdit').val(user.first_name);
-//             $('#LastNameEdit').val(user.last_name);
-//             $('#AgeEdit').val(user.age);
-//             $('#EmailEdit').val(user.email);
-//             $('#PasswordEdit').val(user.password);
-//             $('#RolesEdit').val(user.roles);
-//         });
-//         // Вызов модального окна с id='editModal'
-//         $('#editModal').modal();
-//     });
+// function roleOfUser(roles) {
+//     let role = "";
+//     for (let temp of roles) {
+//         role += temp.roleName;
+//         if (roles.length > 1) {
+//             role += ", ";
+//         }
+//     }
+//     return role;
+// }
 //
-//     $('.table #deleteButton').on('click',function(event) {
-//         event.preventDefault();
-//         var href = $(this).attr('href');
-//         $('#deleteModal #delRef').attr('href', href);
-//         $('#deleteModal').modal();
-//     });
-// });
+// async function getOneUser() {
+//     try {
+//         const response = await fetch(`
+//                 http://localhost:8080/admin/users/${id}`)
+//                     const user = await response.json()
+//                 console.log(user)
+//                 let tempUser = "";
+//                 tempUser += `<tr>";
+//         tempUser += "<td>" + user.id + "</td>";
+//         tempUser += "<td>" + user.firstName + "</td>";
+//         tempUser += "<td>" + user.lastName + "</td>";
+//         tempUser += "<td>" + user.age + "</td>";
+//         tempUser += "<td>" + user.email + "</td>";
+//         tempUser += "<td>" + roleOfUser(u.roles) + "</td>";
+//         tempUser += "<tr>`
+//                 // Вставляет текстовое содержимое данного HTML-тега temp в атрибут с id="users"
+//                 document.getElementById("user").innerHTML = tempUser;
+//             }
+//         catch
+//             (e)
+//             {
+//                 console.error(e)
+//             }
+//         }
+//
+//         getOneUser();
+
+const tbody = document.querySelector('tbody')
+let rezult = ''
+
+// const editUser = new bootstrap.Modal(document.getElementById('editUser'))
+// const editForm = document.getElementById('editForm')
+// const idEdit = document.getElementById('idEdit')
+// const firstNameEdit = document.getElementById('firstNameEdit')
+// const lastNameEdit = document.getElementById('lastNameEdit')
+// const ageEdit = document.getElementById('ageEdit')
+// const emailEdit = document.getElementById('emailEdit')
+// const passwordEdit = document.getElementById('passwordEdit')
+// let option = ''
+//
+// buttonEdit.addEventListener('click', () => {
+//     idEdit.value = ''
+//     firstNameEdit.value = ''
+//     lastNameEdit.value = ''
+//     ageEdit.value = ''
+//     emailEdit.value = ''
+//     passwordEdit.value = ''
+//     editUser.show()
+//     option = 'edit'
+// })
+
+// const showRezultHTML = (users) => {
+//     users.forEach(user => {
+//         rezult += `<tr>
+//                        <td>${user.id}</td>
+//                        <td>${user.firstName}</td>
+//                        <td>${user.lastName}</td>
+//                        <td>${user.age}</td>
+//                        <td>${user.email}</td>
+//                        <td>${user.password}</td>
+//                        <td class="text-center"><a class="btnEdit btn btn-primary">Edit</a><a class="btnDelete btn btn-danger">Delete</a></td>
+//                    </tr>
+//         `
+//     })
+//     content.innerHTML = rezult
+// }
 
 async function getRowUsers() {
     try {
         const response = await fetch("http://localhost:8080/admin/users")
         const users = await response.json()
-        if (users.length > 0) {
-            let temp = "";
-            users.forEach((u) => {
-                temp += "<tr>";
-                temp += "<td>" + u.id + "</td>";
-                temp += "<td>" + u.first_name + "</td>";
-                temp += "<td>" + u.last_name + "</td>";
-                temp += "<td>" + u.age + "</td>";
-                temp += "<td>" + u.email + "</td>";
-                temp += "<td>" + u.roles + "</td>";
-                temp += "</tr>";
-            })
-            // Вставляет текстовое содержимое данного HTML-тега temp в атрибут с id="users"
-            document.getElementById("users").innerHTML = temp;
-        }
+        users.forEach(user => {
+            rezult += `<tr>
+                            <td>${user.id}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                            <td>${user.age}</td>
+                            <td>${user.email}</td>
+                            <td class="text-center"><a class="btnEdit btn btn-primary">Edit</a><a class="btnDelete btn btn-danger">Delete</a></td>
+                       </tr>
+        `
+        })
     } catch (e) {
         console.error(e)
     }
+    tbody.innerHTML = rezult
 }
+
+getRowUsers()
+
+
+
+
