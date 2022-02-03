@@ -12,6 +12,7 @@ function roleOfUser(roles) {
     }
     return role;
 }
+
 const usersRows = (users) => {
     users.forEach(user => {
         rezult += `<tr>
@@ -41,10 +42,10 @@ async function getUsers() {
 
 getUsers()
 
-// window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
-
-const modalUser = new bootstrap.Modal(document.getElementById('modalUser'))
-const form = document.querySelector('form')
+const modalUser = document.getElementById('modalUser')
+const modalBootstrap = new bootstrap.Modal(modalUser)
+// const modalUser = new Modal(document.getElementById('modalUser'))
+// const form = document.querySelector('form')
 const id = document.getElementById('id')
 const firstName = document.getElementById('firstName')
 const lastName = document.getElementById('lastName')
@@ -91,12 +92,58 @@ on(document, 'click', '.btnEdit', e => {
     password.value = passwordForm
     role.value = roleForm
     option = 'edit'
-    modalUser.show()
+    modalBootstrap.show()
 })
 
-async function submitEdit() {
-    try {
-        const response = await fetch(url+idUser, {
+on(document, 'click', '.btnDelete', e => {
+    const fila = e.target.parentNode.parentNode
+    idUser = fila.children[0].innerHTML
+    const firstNameForm = fila.children[1].innerHTML
+    const lastNameForm = fila.children[2].innerHTML
+    const ageForm = fila.children[3].innerHTML
+    const emailForm = fila.children[4].innerHTML
+    const passwordForm = fila.children[5].innerHTML
+    const roleForm = fila.children[6].innerHTML
+    firstName.value = firstNameForm
+    lastName.value = lastNameForm
+    age.value = ageForm
+    email.value = emailForm
+    password.value = passwordForm
+    role.value = roleForm
+    option = 'delete'
+    modalBootstrap.show()
+})
+
+// async function submitEdit() {
+//     try {
+//         const response = await fetch(url + idUser, {
+//             method: 'PUT',
+//             headers: {
+//                 'ContentType': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 firstName: firstName.value,
+//                 lastName: lastName.value,
+//                 age: age.value,
+//                 email: email.value,
+//                 password: password.value,
+//                 role: role.value
+//             })
+//         })
+//         const inf = await response.json()
+//         // Метод перезагружает текущий URL-адреc
+//         const infLoad = (inf) => location.reload()
+//         modalBootstrap.hide()
+//     } catch (e) {
+//         console.error(e)
+//     }
+// }
+console.log(modalUser)
+
+modalUser.addEventListener('submit', (e) => {
+    e.preventDefault()
+    if (option === 'edit') {
+        fetch(url + idUser, {
             method: 'PUT',
             headers: {
                 'ContentType': 'application/json'
@@ -110,18 +157,9 @@ async function submitEdit() {
                 role: role.value
             })
         })
-        const inf = await response.json()
-        location.reload()
-        modalUser.hide()
-    } catch (e) {
-        console.error(e)
+            .then(response => response.json())
+            .then(response => location.reload())
     }
-}
-
-modalUser.addEventListener('submit', e => {
-    if (option === 'edit') {
-        submitEdit(e)
-    }
-    modalUser.hide()
+    modalBootstrap.hide()
 })
-//Метод перезагружает текущий URL-адре
+
