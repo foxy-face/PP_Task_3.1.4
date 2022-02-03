@@ -6,6 +6,7 @@ import com.example.pptaskspringboot.rest.model.User;
 import com.example.pptaskspringboot.rest.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,8 @@ public class MyRestController {
         return user;
     }
 
-    @PutMapping("/users")
+    @PutMapping(value = "/users", consumes =MediaType.APPLICATION_JSON_VALUE ,
+            headers = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@RequestBody User user) {
         appService.update(user);
         return user;

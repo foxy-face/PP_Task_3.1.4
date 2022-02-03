@@ -46,7 +46,7 @@ const modalUser = document.getElementById('modalUser')
 const modalBootstrap = new bootstrap.Modal(modalUser)
 // const modalUser = new Modal(document.getElementById('modalUser'))
 // const form = document.querySelector('form')
-const id = document.getElementById('id')
+// const id = document.getElementById('id')
 const firstName = document.getElementById('firstName')
 const lastName = document.getElementById('lastName')
 const age = document.getElementById('age')
@@ -143,12 +143,13 @@ console.log(modalUser)
 modalUser.addEventListener('submit', (e) => {
     e.preventDefault()
     if (option === 'edit') {
-        fetch(url + idUser, {
+        fetch(url, {
             method: 'PUT',
             headers: {
-                'ContentType': 'application/json'
+                'ContentType': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
+                id:idUser,
                 firstName: firstName.value,
                 lastName: lastName.value,
                 age: age.value,
@@ -158,8 +159,25 @@ modalUser.addEventListener('submit', (e) => {
             })
         })
             .then(response => response.json())
-            .then(response => location.reload())
+            // .then(response => location.reload())
     }
-    modalBootstrap.hide()
+    // if (option === 'delete') {
+    //     fetch(url + idUser, {
+    //         method: 'DELETE'})
+    //         .then(response => response.json())
+    //         .then(response => location.reload())
+    // }
+    // modalBootstrap.hide()
 })
 
+// async function sendRequest(url, method = 'GET', headers = null, body = null) {
+//     let dataResponse = null
+//     try {
+//         const response = await fetch(url, method, headers, body)
+//         dataResponse = await response.json()
+//     } catch (e) {
+//         console.error(e)
+//     }
+// }
+// sendRequest(url)
+// console.log(dataResponse)

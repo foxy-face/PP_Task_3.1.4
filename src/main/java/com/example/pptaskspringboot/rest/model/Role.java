@@ -1,6 +1,8 @@
 package com.example.pptaskspringboot.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -19,7 +21,8 @@ public class Role implements GrantedAuthority {
     @Column(name = "roleName")
     private String roleName;
 
-    @JsonIgnore
+//это обратная часть ссылки-она будет исключена из сериализации
+    @JsonBackReference
     @ManyToMany(mappedBy = "roles")
     private Set<User> user;
 

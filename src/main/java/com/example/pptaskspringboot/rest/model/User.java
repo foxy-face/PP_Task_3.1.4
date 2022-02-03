@@ -1,5 +1,7 @@
 package com.example.pptaskspringboot.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +36,8 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true)// уникальное значение
     private String email;
 
+    //это прямая часть ссылки, которая обычно сериализуется
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinTable(
