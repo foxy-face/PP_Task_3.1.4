@@ -146,7 +146,7 @@ modalUser.addEventListener('submit', (e) => {
         fetch(url, {
             method: 'PUT',
             headers: {
-                'ContentType': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
                 id:idUser,
@@ -159,7 +159,7 @@ modalUser.addEventListener('submit', (e) => {
             })
         })
             .then(response => response.json())
-            // .then(response => location.reload())
+            location.reload()
     }
     // if (option === 'delete') {
     //     fetch(url + idUser, {

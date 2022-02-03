@@ -22,7 +22,8 @@ public class Role implements GrantedAuthority {
     private String roleName;
 
 //это обратная часть ссылки-она будет исключена из сериализации
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> user;
 

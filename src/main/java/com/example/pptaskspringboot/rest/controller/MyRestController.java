@@ -42,8 +42,7 @@ public class MyRestController {
         return user;
     }
 
-    @PutMapping(value = "/users", consumes =MediaType.APPLICATION_JSON_VALUE ,
-            headers = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/users")
     public User updateUser(@RequestBody User user) {
         appService.update(user);
         return user;

@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private String email;
 
     //это прямая часть ссылки, которая обычно сериализуется
-    @JsonManagedReference
+//    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinTable(
