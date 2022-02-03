@@ -1,5 +1,6 @@
 const tbody = document.querySelector('tbody')
 let rezult = ''
+const url = 'http://localhost:8080/admin/users'
 
 function roleOfUser(roles) {
     let role = "";
@@ -30,7 +31,7 @@ const usersRows = (users) => {
 
 async function getUsers() {
     try {
-        const response = await fetch("http://localhost:8080/admin/users")
+        const response = await fetch(url)
         const users = await response.json()
         const usersTable = await usersRows(users)
     } catch (e) {
@@ -73,10 +74,10 @@ const on = (element, event, selector, handler) => {
     })
 }
 
-let idForm = 0
+let idUser = 0
 on(document, 'click', '.btnEdit', e => {
     const fila = e.target.parentNode.parentNode
-    idForm = fila.children[0].innerHTML
+    idUser = fila.children[0].innerHTML
     const firstNameForm = fila.children[1].innerHTML
     const lastNameForm = fila.children[2].innerHTML
     const ageForm = fila.children[3].innerHTML
@@ -95,8 +96,8 @@ on(document, 'click', '.btnEdit', e => {
 
 async function submitEdit() {
     try {
-        const response = await fetch("http://localhost:8080/admin/users", {
-            method: 'POST',
+        const response = await fetch(url+idUser, {
+            method: 'PUT',
             headers: {
                 'ContentType': 'application/json'
             },
@@ -110,9 +111,8 @@ async function submitEdit() {
             })
         })
         const inf = await response.json()
-        const infPush = () => {
-            dataForPush.push(inf)
-        }
+        location.reload()
+        modalUser.hide()
     } catch (e) {
         console.error(e)
     }
@@ -124,3 +124,4 @@ modalUser.addEventListener('submit', e => {
     }
     modalUser.hide()
 })
+//Метод перезагружает текущий URL-адре
