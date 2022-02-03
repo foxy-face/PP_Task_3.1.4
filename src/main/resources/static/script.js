@@ -161,13 +161,13 @@ modalUser.addEventListener('submit', (e) => {
             .then(response => response.json())
             location.reload()
     }
-    // if (option === 'delete') {
-    //     fetch(url + idUser, {
-    //         method: 'DELETE'})
-    //         .then(response => response.json())
-    //         .then(response => location.reload())
-    // }
-    // modalBootstrap.hide()
+    if (option === 'delete') {
+        fetch(url + "/" + idUser, {
+            method: 'DELETE'})
+            .then(response => response.json())
+            location.reload()
+    }
+    modalBootstrap.hide()
 })
 
 // async function sendRequest(url, method = 'GET', headers = null, body = null) {
