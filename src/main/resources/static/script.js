@@ -11,32 +11,36 @@ function roleOfUser(roles) {
     }
     return role;
 }
-
-async function getRowUsers() {
-    try {
-        const response = await fetch("http://localhost:8080/admin/users")
-        const users = await response.json()
-        users.forEach(user => {
-            rezult += `<tr>
+const usersRows = (users) => {
+    users.forEach(user => {
+        rezult += `<tr>
                             <td>${user.id}</td>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
                             <td>${user.age}</td>
                             <td>${user.email}</td>
+                            <td>${user.password}</td>
                             <td>${roleOfUser(user.roles)}</td>
                             <td class="text-center"><a class="btnEdit btn btn-primary">Edit</a><a class="btnDelete btn btn-danger">Delete</a></td>
                        </tr>
         `
-        })
-    } catch (e) {
-        console.error(e)
-    }
+    })
     tbody.innerHTML = rezult
 }
 
-getRowUsers()
+async function getUsers() {
+    try {
+        const response = await fetch("http://localhost:8080/admin/users")
+        const users = await response.json()
+        const usersTable = await usersRows(users)
+    } catch (e) {
+        console.error(e)
+    }
+}
 
-window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
+getUsers()
+
+// window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js');
 
 const modalUser = new bootstrap.Modal(document.getElementById('modalUser'))
 const form = document.querySelector('form')
@@ -45,6 +49,7 @@ const firstName = document.getElementById('firstName')
 const lastName = document.getElementById('lastName')
 const age = document.getElementById('age')
 const email = document.getElementById('email')
+const password = document.getElementById('password')
 const role = document.getElementById('role')
 let option = ''
 
@@ -62,7 +67,7 @@ let option = ''
 const on = (element, event, selector, handler) => {
     element.addEventListener(event, e => {
         //closest() позволяет перемещаться по DOM, пока мы не получим элемент, соответствующий заданному селектору.
-        if(e.target.closest(selector)) {
+        if (e.target.closest(selector)) {
             handler(e)
         }
     })
@@ -72,17 +77,50 @@ let idForm = 0
 on(document, 'click', '.btnEdit', e => {
     const fila = e.target.parentNode.parentNode
     idForm = fila.children[0].innerHTML
-    console.log(fila)
     const firstNameForm = fila.children[1].innerHTML
     const lastNameForm = fila.children[2].innerHTML
     const ageForm = fila.children[3].innerHTML
     const emailForm = fila.children[4].innerHTML
-    const roleForm = fila.children[5].innerHTML
+    const passwordForm = fila.children[5].innerHTML
+    const roleForm = fila.children[6].innerHTML
     firstName.value = firstNameForm
     lastName.value = lastNameForm
     age.value = ageForm
     email.value = emailForm
+    password.value = passwordForm
     role.value = roleForm
     option = 'edit'
     modalUser.show()
+})
+
+async function submitEdit() {
+    try {
+        const response = await fetch("http://localhost:8080/admin/users", {
+            method: 'POST',
+            headers: {
+                'ContentType': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName: firstName.value,
+                lastName: lastName.value,
+                age: age.value,
+                email: email.value,
+                password: password.value,
+                role: role.value
+            })
+        })
+        const inf = await response.json()
+        const infPush = () => {
+            dataForPush.push(inf)
+        }
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+modalUser.addEventListener('submit', e => {
+    if (option === 'edit') {
+        submitEdit(e)
+    }
+    modalUser.hide()
 })
