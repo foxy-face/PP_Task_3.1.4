@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,40 +18,40 @@
 <body>
 
 <!--email with roles: + роли пользователя и ссылка на logout-->
-<!--<nav class="navbar navbar-dark bg-dark text-white">-->
-<!--    &lt;!&ndash;    Контейнер для 100%-ной ширины&ndash;&gt;-->
-<!--    <div class="container-fluid">-->
-<!--        <span>-->
-<!--&lt;!&ndash;            подтягивает из формы аутентификации username (у меня это email), необходимо прописать в pom-->
-<!--файле зависимость <artifactId>thymeleaf-extras-springsecurity5</artifactId>&ndash;&gt;-->
-<!--            <span sec:authentication="name"></span>-->
-<!--            <span th:text="'with roles: ' + ${user.getRoles()}"></span>-->
-<!--        </span>-->
-<!--        &lt;!&ndash;        расположение в конце контейнера&ndash;&gt;-->
-<!--        <ul class="navbar-nav justify-content-end">-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="/logout">Logout</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</nav>-->
+<nav class="navbar navbar-dark bg-dark text-white">
+    <!--    Контейнер для 100%-ной ширины-->
+    <div class="container-fluid">
+        <span>
+<!--            подтягивает из формы аутентификации username (у меня это email), необходимо прописать в pom
+файле зависимость <artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
+            <span sec:authentication="name"></span>
+            <span th:text="'with roles: '"></span>
+        </span>
+        <!--        расположение в конце контейнера-->
+        <ul class="navbar-nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <!--Контейнер (container-fluid - на всю ширину) - вся панель из 12 колонок, разбиваем её на col-md-2 + col-md-10-->
 <div class="container-fluid">
     <div class="row">
         <!--Левая часть админ-панели из 2 колонок строки на всю ширину-->
-        <!--        <div class="col-lg-2 px-0">-->
-        <!--            &lt;!&ndash;            nav-pills - подушка для подсвечивания&ndash;&gt;-->
-        <!--            <ul class="nav nav-pills flex-column">-->
-        <!--                <li class="nav-item">-->
-        <!--                    &lt;!&ndash;                    nav-link active подсвечивает указанную ссылку&ndash;&gt;-->
-        <!--                    <a class="nav-link active" aria-current="page" th:href="@{/admin}">Admin</a>-->
-        <!--                </li>-->
-        <!--                <li class="nav-item">-->
-        <!--                    <a class="nav-link" th:href="@{/user}">User</a>-->
-        <!--                </li>-->
-        <!--            </ul>-->
-        <!--        </div>-->
+                <div class="col-lg-2 px-0">
+                    <!--            nav-pills - подушка для подсвечивания-->
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <!--                    nav-link active подсвечивает указанную ссылку-->
+                            <a class="nav-link active" aria-current="page">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">User</a>
+                        </li>
+                    </ul>
+                </div>
         <!--Правая часть админ-панели из 10 колонок строки на всю ширину-->
         <div class="col-lg-10 bg-light vh-100 px-3">
             <h1>Admin panel</h1>
@@ -61,7 +61,7 @@
                     <a class="nav-link active" data-toggle="tab" aria-current="page" href="#allUser">User table</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" aria-controls="page" href="#newUser">New user</a>
+                    <a id="linkNewUser" class="nav-link" data-toggle="tab" aria-controls="page" href="#newUser">New user</a>
                 </li>
             </ul>
 
@@ -69,7 +69,7 @@
             <!--id контента должен соответствовать href вкладки-->
             <div class="tab-content border bg-white">
                 <!--Первый блок - отображение всех пользователей>-->
-                <div class="tab-pane fade show active" id="allUser">
+                <div id="allUser" class="tab-pane fade show active">
                     <h5 class="card-header">All users</h5>
                     <br>
                     <div class="px-3 pb-5">
@@ -82,7 +82,7 @@
                                 <th>Last Name</th>
                                 <th>Age</th>
                                 <th>Email</th>
-                                <th>Password</th>
+<!--                                <th>Password</th>-->
                                 <th>Role</th>
                             </tr>
                             </thead>
@@ -90,13 +90,12 @@
                             </tbody>
                         </table>
                     </div>
-
                     <!--Модальный элемент с id=”editUser”-->
                     <div id="modalUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Edit user</h5>
+                                    <h5 class="modal-title">User</h5>
                                     <button type="button" class="btn-close" data-dismiss="modal"
                                             aria-label="Close">
                                     </button>
@@ -110,13 +109,13 @@
                                         <input id="lastName" type="text" class="form-control" required>
                                         <br>
                                         <label for="age"><b>Age</b></label>
-                                        <input id="age" type="text" class="form-control" required>
+                                        <input id="age" type="number" class="form-control" required>
                                         <br>
                                         <label for="email"><b>Email</b></label>
-                                        <input id="email" type="text" class="form-control" required>
+                                        <input id="email" type="email" class="form-control" required>
                                         <br>
                                         <label for="password"><b>Password</b></label>
-                                        <input id="password" type="text" class="form-control" required>
+                                        <input id="password" type="password" class="form-control" required>
                                         <br>
                                         <label for="role"><b>Role</b></label>
                                         <select id="role" class="form-control" multiple size="2" name="role">
@@ -126,98 +125,52 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-------------------------------------------------------------------------------------->
-
-                    <!--Модальный элемент с id=”deleteUser”-->
-                    <!--                        <div id="deleteUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
-                    <!--                            <div class="modal-dialog">-->
-                    <!--                                <div class="modal-content">-->
-                    <!--                                    <div class="modal-header">-->
-                    <!--                                        <h5 class="modal-title">Delete user</h5>-->
-                    <!--                                        <button type="button" class="btn-close" data-dismiss="modal"-->
-                    <!--                                                aria-label="Close">-->
-                    <!--                                            <span aria-hidden="true">&times;</span>-->
-                    <!--                                        </button>-->
-                    <!--                                    </div>-->
-                    <!--                                    <div class="modal-body col-md text-center">-->
-                    <!--                                        <form id="deleteForm">-->
-                    <!--                                            <label for="idDelete"><b>ID</b></label>-->
-                    <!--                                            <input id="idDelete" type="text" class="form-control" readonly>-->
-                    <!--                                            <br>-->
-                    <!--                                            <label for="firstNameDelete"><b>First name</b></label>-->
-                    <!--                                            <input id="firstNameDelete" type="text" class="form-control" readonly>-->
-                    <!--                                            <br>-->
-                    <!--                                            <label for="lastNameDelete"><b>Last name</b></label>-->
-                    <!--                                            <input id="lastNameDelete" type="text" class="form-control" readonly>-->
-                    <!--                                            <br>-->
-                    <!--                                            <label for="ageDelete"><b>Age</b></label>-->
-                    <!--                                            <input id="ageDelete" type="number" class="form-control" readonly>-->
-                    <!--                                            <br>-->
-                    <!--                                            <label for="emailDelete"><b>Email</b></label>-->
-                    <!--                                            <input id="emailDelete" type="text" class="form-control" readonly>-->
-                    <!--                                            <br>-->
-                    <!--                                            <label for="passwordDelete"><b>Password</b></label>-->
-                    <!--                                            <input id="passwordDelete" type="text" class="form-control" readonly>-->
-                    <!--                                            <br>-->
-                    <!--                                            &lt;!&ndash;                                                    <label for="roleDelete"><b>Role</b></label>&ndash;&gt;-->
-                    <!--                                            &lt;!&ndash;                                                    <select class="form-control" multiple size="2"&ndash;&gt;-->
-                    <!--                                            &lt;!&ndash;                                                            th:aria-label="${'userRole' + user.getId()}"&ndash;&gt;-->
-                    <!--                                            &lt;!&ndash;                                                            name="role" id="roleDelete" required>&ndash;&gt;-->
-                    <!--                                            &lt;!&ndash;                                                        <option value="ROLE_ADMIN">ROLE_ADMIN</option>&ndash;&gt;-->
-                    <!--                                            &lt;!&ndash;                                                        <option value="ROLE_USER">ROLE_USER</option>&ndash;&gt;-->
-                    <!--                                            &lt;!&ndash;                                                    </select>&ndash;&gt;-->
-                    <!--                                        </form>-->
-                    <!--                                        <br>-->
-                    <!--                                        <button type="submit" class="btn btn-success" th:form="${'formNew'}">Add new user</button>-->
-                    <!--                                </div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!----------------------------------------------------------------------------------------------------------->
+                    <!---------------------Конец модального окна editUser и deleteUser----------------------------------------------------------------->
                 </div>
+                <!--Вкладка добавления нового юзера id="newUser"-->
+                <div id="newUser" class="tab-pane fade">
+                    <h5 class="card-header">New user</h5>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="text-center pb-5 col-3">
+                            <form id="newUserForm">
+                                <label for="firstNameNew"><b>First name</b></label>
+                                <input class="form-control" placeholder="First name" id="firstNameNew" required>
+                                <br>
+                                <label for="lastNameNew"><b>Last name</b></label>
+                                <input class="form-control" placeholder="Last name" id="lastNameNew" required>
+                                <br>
+                                <label for="ageNew"><b>Age</b></label>
+                                <input class="form-control" placeholder="Age" id="ageNew" required>
+                                <br>
+                                <label for="emailNew"><b>Email</b></label>
+                                <input class="form-control weigth-50" placeholder="Email" id="emailNew" required>
+                                <br>
+                                <label for="passwordNew"><b>Password</b></label>
+                                <input class="form-control" placeholder="Password" id="passwordNew" required>
+                                <br>
+                                <label for="roleNew"><b>Role</b></label>
+                                <select class="form-control" multiple size="2" name="role" id="roleNew">
+                                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                    <option value="ROLE_USER">ROLE_USER</option>
+                                </select>
+                            </form>
+                            <br>
+                            <button type="submit" class="btn btn-success">Add new user
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!---------------------------------------------------------------------------------------------------->
             </div>
         </div>
-        <!--Вкладка добавления нового юзера id="newUser"-->
-<!--                        <div id="newUser" class="tab-pane fade">-->
-<!--                            <h5 class="card-header">New user</h5>-->
-<!--                            <br>-->
-<!--                            <div class="row justify-content-center">-->
-<!--                                <div class="text-center pb-5 col-3">-->
-<!--                                    <form id="newUserForm">-->
-<!--                                        <label for="firstNameNew"><b>First name</b></label>-->
-<!--                                        <input class="form-control" placeholder="First name" id="firstNameNew" required>-->
-<!--                                        <br>-->
-<!--                                        <label for="lastNameNew"><b>Last name</b></label>-->
-<!--                                        <input class="form-control" placeholder="Last name" id="lastNameNew" required>-->
-<!--                                        <br>-->
-<!--                                        <label for="ageNew"><b>Age</b></label>-->
-<!--                                        <input class="form-control" placeholder="Age" id="ageNew" required>-->
-<!--                                        <br>-->
-<!--                                        <label for="emailNew"><b>Email</b></label>-->
-<!--                                        <input class="form-control weigth-50" placeholder="Email" id="emailNew" required>-->
-<!--                                        <br>-->
-<!--                                        <label for="passwordNew"><b>Password</b></label>-->
-<!--                                        <input class="form-control" placeholder="Password" id="passwordNew" required>-->
-<!--                                        <br>-->
-<!--                                        <label for="roleNew"><b>Role</b></label>-->
-<!--                                        <select class="form-control" multiple size="2" name="role" id="roleNew">-->
-<!--                                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>-->
-<!--                                            <option value="ROLE_USER">ROLE_USER</option>-->
-<!--                                        </select>-->
-<!--                                    </form>-->
-<!--                                    <br>-->
-<!--                                    <button type="submit" class="btn btn-success">Add new user-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-        <!---------------------------------------------------------------------------------------------------->
     </div>
 </div>
 

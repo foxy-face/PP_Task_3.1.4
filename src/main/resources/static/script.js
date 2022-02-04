@@ -21,7 +21,6 @@ const usersRows = (users) => {
                             <td>${user.lastName}</td>
                             <td>${user.age}</td>
                             <td>${user.email}</td>
-                            <td>${user.password}</td>
                             <td>${roleOfUser(user.roles)}</td>
                             <td class="text-center"><a class="btnEdit btn btn-primary">Edit</a><a class="btnDelete btn btn-danger">Delete</a></td>
                        </tr>
@@ -42,9 +41,13 @@ async function getUsers() {
 
 getUsers()
 
+//-------------------------------КОНЕЦ----------Заполнение таблицы строками--------------------------------------------
+
 const modalUser = document.getElementById('modalUser')
 const modalBootstrap = new bootstrap.Modal(modalUser)
-// const modalUser = new Modal(document.getElementById('modalUser'))
+const newUser = document.getElementById('newUser')
+const linkNewUser = document.getElementById('linkNewUser')
+// const modalUser = new bootstrap.Modal(document.getElementById('modalUser'))
 // const form = document.querySelector('form')
 // const id = document.getElementById('id')
 const firstName = document.getElementById('firstName')
@@ -55,15 +58,15 @@ const password = document.getElementById('password')
 const role = document.getElementById('role')
 let option = ''
 
-// btnEdit.addEventListener('click', () => {
+// linkNewUser.addEventListener('click', () => {
 //     id.value = ''
 //     firstName.value = ''
 //     lastName.value = ''
 //     age.value = ''
 //     email.value = ''
-//     // passwordEdit.value = ''
-//     modalUser.show()
-//     option = 'edit'
+//     passwordEdit.value = ''
+//     newUser.show()
+//     option = 'create'
 // })
 
 const on = (element, event, selector, handler) => {
@@ -76,6 +79,7 @@ const on = (element, event, selector, handler) => {
 }
 
 let idUser = 0
+
 on(document, 'click', '.btnEdit', e => {
     const fila = e.target.parentNode.parentNode
     idUser = fila.children[0].innerHTML
@@ -114,32 +118,6 @@ on(document, 'click', '.btnDelete', e => {
     modalBootstrap.show()
 })
 
-// async function submitEdit() {
-//     try {
-//         const response = await fetch(url + idUser, {
-//             method: 'PUT',
-//             headers: {
-//                 'ContentType': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 firstName: firstName.value,
-//                 lastName: lastName.value,
-//                 age: age.value,
-//                 email: email.value,
-//                 password: password.value,
-//                 role: role.value
-//             })
-//         })
-//         const inf = await response.json()
-//         // Метод перезагружает текущий URL-адреc
-//         const infLoad = (inf) => location.reload()
-//         modalBootstrap.hide()
-//     } catch (e) {
-//         console.error(e)
-//     }
-// }
-console.log(modalUser)
-
 modalUser.addEventListener('submit', (e) => {
     e.preventDefault()
     if (option === 'edit') {
@@ -149,7 +127,7 @@ modalUser.addEventListener('submit', (e) => {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-                id:idUser,
+                id: idUser,
                 firstName: firstName.value,
                 lastName: lastName.value,
                 age: age.value,
@@ -159,25 +137,33 @@ modalUser.addEventListener('submit', (e) => {
             })
         })
             .then(response => response.json())
-            location.reload()
+            .then(response => location.reload())
     }
     if (option === 'delete') {
         fetch(url + "/" + idUser, {
-            method: 'DELETE'})
+            method: 'DELETE'
+        })
             .then(response => response.json())
-            location.reload()
+            .then(response => location.reload())
     }
+    // if (option === 'create') {
+    //     fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json;charset=utf-8'
+    //         },
+    //         body: JSON.stringify({
+    //             firstName: firstName.value,
+    //             lastName: lastName.value,
+    //             age: age.value,
+    //             email: email.value,
+    //             password: password.value,
+    //             role: role.value
+    //         })
+    //     })
+    //         .then(response => response.json())
+    //         .then(responsw => location.reload())
+    // }
     modalBootstrap.hide()
 })
 
-// async function sendRequest(url, method = 'GET', headers = null, body = null) {
-//     let dataResponse = null
-//     try {
-//         const response = await fetch(url, method, headers, body)
-//         dataResponse = await response.json()
-//     } catch (e) {
-//         console.error(e)
-//     }
-// }
-// sendRequest(url)
-// console.log(dataResponse)
