@@ -5,6 +5,7 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,18 +20,24 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "First name cannot be null")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull(message = "Last name cannot be null")
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull
     @Column(name = "password")
     private String password;
 
+    @Digits(integer=3, fraction=0, message = "Не более 3-х знаков")
     @Column(name = "age")
     private Integer age;
 
+    @NotNull
+    @Email(message = "Email should be valid")
     @Column(name = "email", unique = true)// уникальное значение
     private String email;
 
