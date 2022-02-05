@@ -97,7 +97,7 @@ editUser.addEventListener('submit', (e) => {
             age: editAge.value,
             email: editEmail.value,
             password: editPassword.value,
-            roles: editRoles.value
+            roles: [{roleName: editRoles.value}]
         })
     })
         .then(response => response.json())
@@ -165,7 +165,7 @@ newUser.addEventListener('submit', (e) => {
             age: newAge.value,
             email: newEmail.value,
             password: newPassword.value,
-            roles: newRoles.value
+            roles: [{roleName: newRoles.value}]
         })
     })
         .then(response => response.json())
