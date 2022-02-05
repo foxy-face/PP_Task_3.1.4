@@ -12,4 +12,5 @@ public interface AppService {
     void delete(Long id);
     User getUserByEmail(String email);
     Role getRoleByName(String roleName);
+    List<Role> getAllRoles();
 }

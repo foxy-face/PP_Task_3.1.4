@@ -67,4 +67,9 @@ public class AppServiceImpl implements AppService {
     public Role getRoleByName(String roleName) {
         return roleRepozitory.findByRoleName(roleName);
     }
+
+    @Override
+    public List<Role> getAllRoles() {
+        return roleRepozitory.findAll();
+    }
 }

@@ -20,4 +20,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepozitory.findAllByEmail(email);
     }
+
+
 }

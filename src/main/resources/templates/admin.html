@@ -17,17 +17,12 @@
 </head>
 <body>
 
-<!--email with roles: + роли пользователя и ссылка на logout-->
 <nav class="navbar navbar-dark bg-dark text-white">
-    <!--    Контейнер для 100%-ной ширины-->
     <div class="container-fluid">
         <span>
-<!--            подтягивает из формы аутентификации username (у меня это email), необходимо прописать в pom
-файле зависимость <artifactId>thymeleaf-extras-springsecurity5</artifactId>-->
             <span sec:authentication="name"></span>
             <span th:text="'with roles: '"></span>
         </span>
-        <!--        расположение в конце контейнера-->
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>

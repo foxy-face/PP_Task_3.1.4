@@ -64,7 +64,11 @@ const editRoles = document.getElementById('editRoles')
 
 let idUser = 0
 
-on(document, 'click', '.btnEdit', e => {
+on(document, 'click', '.btnEdit', async e => {
+    // let urlRoles = 'http://localhost:8080/api/roles';
+    // let responseRoles = await fetch(urlRoles);
+    // let allRoles = await responseRoles.json();
+    //
     const fila = e.target.parentNode.parentNode
     idUser = fila.children[0].innerHTML
     const firstNameForm = fila.children[1].innerHTML
@@ -79,13 +83,13 @@ on(document, 'click', '.btnEdit', e => {
     editAge.value = ageForm
     editEmail.value = emailForm
     editPassword.value = passwordForm
-    editPassword.value = roleForm
+    editRoles.value = roleForm
     modalEditBootstrap.show()
 })
 
-editUser.addEventListener('submit', (e) => {
+editUser.addEventListener('submit', async e => {
     e.preventDefault()
-    fetch(url, {
+    const response = await fetch(url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -100,9 +104,9 @@ editUser.addEventListener('submit', (e) => {
             roles: [{roleName: editRoles.value}]
         })
     })
-        .then(response => response.json())
-        .then(response => location.reload())
-    modalEditBootstrap.hide()
+    const rs = await response.json()
+    const rl = await location.reload()
+    const rh = await modalEditBootstrap.hide()
 })
 
 const deleteUser = document.getElementById('deleteUser')
@@ -134,14 +138,15 @@ on(document, 'click', '.btnDelete', e => {
     modalDeleteBootstrap.show()
 })
 
-deleteUser.addEventListener('submit', (e) => {
+deleteUser.addEventListener('submit', async e => {
     e.preventDefault()
-    fetch(url + "/" + idUser, {
+    const response = await fetch(url + "/" + idUser, {
         method: 'DELETE'
     })
-        .then(response => response.json())
-        .then(response => location.reload())
-    modalDeleteBootstrap.hide()
+    const rs = await response.json()
+    const rh = await modalDeleteBootstrap.hide()
+    const rl = await location.reload()
+
 })
 
 const newUser = document.getElementById('newUser')
@@ -152,9 +157,9 @@ const newEmail = document.getElementById('newEmail')
 const newPassword = document.getElementById('newPassword')
 const newRoles = document.getElementById('newRoles')
 
-newUser.addEventListener('submit', (e) => {
+newUser.addEventListener('submit', async e => {
     e.preventDefault()
-    fetch(url, {
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -168,8 +173,8 @@ newUser.addEventListener('submit', (e) => {
             roles: [{roleName: newRoles.value}]
         })
     })
-        .then(response => response.json())
-        .then(response => location.reload())
+    const rs = await response.json()
+    const rl = await location.reload()
 })
 
 // let rezultRoles = ''
