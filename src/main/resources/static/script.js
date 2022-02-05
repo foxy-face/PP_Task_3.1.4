@@ -43,6 +43,15 @@ getUsers()
 
 //-------------------------------КОНЕЦ----------Заполнение таблицы строками--------------------------------------------
 
+const on = (element, event, selector, handler) => {
+    element.addEventListener(event, e => {
+        //closest() позволяет перемещаться по DOM, пока мы не получим элемент, соответствующий заданному селектору.
+        if (e.target.closest(selector)) {
+            handler(e)
+        }
+    })
+}
+
 const editUser = document.getElementById('editUser')
 const modalEditBootstrap = new bootstrap.Modal(editUser)
 const editId = document.getElementById('editId')
@@ -52,27 +61,6 @@ const editAge = document.getElementById('editAge')
 const editEmail = document.getElementById('editEmail')
 const editPassword = document.getElementById('editPassword')
 const editRoles = document.getElementById('editRoles')
-
-let option = ''
-
-const deleteUser = document.getElementById('deleteUser')
-const modalDeleteBootstrap = new bootstrap.Modal(deleteUser)
-const deleteId = document.getElementById('deleteId')
-const deleteFirstName = document.getElementById('deleteFirstName')
-const deleteLastName = document.getElementById('deleteLastName')
-const deleteAge = document.getElementById('deleteAge')
-const deleteEmail = document.getElementById('deleteEmail')
-const deletePassword = document.getElementById('deletePassword')
-const deleteRoles = document.getElementById('deleteRoles')
-
-const on = (element, event, selector, handler) => {
-    element.addEventListener(event, e => {
-        //closest() позволяет перемещаться по DOM, пока мы не получим элемент, соответствующий заданному селектору.
-        if (e.target.closest(selector)) {
-            handler(e)
-        }
-    })
-}
 
 let idUser = 0
 
@@ -93,25 +81,6 @@ on(document, 'click', '.btnEdit', e => {
     editPassword.value = passwordForm
     editPassword.value = roleForm
     modalEditBootstrap.show()
-})
-
-on(document, 'click', '.btnDelete', e => {
-    const fila = e.target.parentNode.parentNode
-    idUser = fila.children[0].innerHTML
-    const firstNameForm = fila.children[1].innerHTML
-    const lastNameForm = fila.children[2].innerHTML
-    const ageForm = fila.children[3].innerHTML
-    const emailForm = fila.children[4].innerHTML
-    const passwordForm = fila.children[5].innerHTML
-    const roleForm = fila.children[6].innerHTML
-    deleteId.value = idUser
-    deleteFirstName.value = firstNameForm
-    deleteLastName.value = lastNameForm
-    deleteAge.value = ageForm
-    deleteEmail.value = emailForm
-    deletePassword.value = passwordForm
-    deleteRoles.value = roleForm
-    modalDeleteBootstrap.show()
 })
 
 editUser.addEventListener('submit', (e) => {
@@ -136,6 +105,35 @@ editUser.addEventListener('submit', (e) => {
     modalEditBootstrap.hide()
 })
 
+const deleteUser = document.getElementById('deleteUser')
+const modalDeleteBootstrap = new bootstrap.Modal(deleteUser)
+const deleteId = document.getElementById('deleteId')
+const deleteFirstName = document.getElementById('deleteFirstName')
+const deleteLastName = document.getElementById('deleteLastName')
+const deleteAge = document.getElementById('deleteAge')
+const deleteEmail = document.getElementById('deleteEmail')
+const deletePassword = document.getElementById('deletePassword')
+const deleteRoles = document.getElementById('deleteRoles')
+
+on(document, 'click', '.btnDelete', e => {
+    const fila = e.target.parentNode.parentNode
+    idUser = fila.children[0].innerHTML
+    const firstNameForm = fila.children[1].innerHTML
+    const lastNameForm = fila.children[2].innerHTML
+    const ageForm = fila.children[3].innerHTML
+    const emailForm = fila.children[4].innerHTML
+    const passwordForm = fila.children[5].innerHTML
+    const roleForm = fila.children[6].innerHTML
+    deleteId.value = idUser
+    deleteFirstName.value = firstNameForm
+    deleteLastName.value = lastNameForm
+    deleteAge.value = ageForm
+    deleteEmail.value = emailForm
+    deletePassword.value = passwordForm
+    deleteRoles.value = roleForm
+    modalDeleteBootstrap.show()
+})
+
 deleteUser.addEventListener('submit', (e) => {
     e.preventDefault()
     fetch(url + "/" + idUser, {
@@ -144,4 +142,32 @@ deleteUser.addEventListener('submit', (e) => {
         .then(response => response.json())
         .then(response => location.reload())
     modalDeleteBootstrap.hide()
+})
+
+const newUser = document.getElementById('newUser')
+const newFirstName = document.getElementById('newFirstName')
+const newLastName = document.getElementById('newLastName')
+const newAge = document.getElementById('newAge')
+const newEmail = document.getElementById('newEmail')
+const newPassword = document.getElementById('newPassword')
+const newRoles = document.getElementById('newRoles')
+
+newUser.addEventListener('submit', (e) => {
+    e.preventDefault()
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            firstName: newFirstName.value,
+            lastName: newLastName.value,
+            age: newAge.value,
+            email: newEmail.value,
+            password: newPassword.value,
+            roles: newRoles.value
+        })
+    })
+        .then(response => response.json())
+        .then(response => location.reload())
 })

@@ -121,7 +121,7 @@
                                         <input id="editPassword" type="password" class="form-control" required>
                                         <br>
                                         <label for="editRoles"><b>Roles</b></label>
-                                        <select id="editRoles" class="form-control" multiple size="2" name="roles">
+                                        <select id="editRoles" class="form-control" multiple size="2" name="roles" required>
                                             <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                                             <option value="ROLE_USER">ROLE_USER</option>
                                         </select>
@@ -190,31 +190,30 @@
                     <br>
                     <div class="row justify-content-center">
                         <div class="text-center pb-5 col-3">
-                            <form id="newUserForm">
-                                <label for="firstNameNew"><b>First name</b></label>
-                                <input class="form-control" placeholder="First name" id="firstNameNew" required>
+                            <form>
+                                <label for="newFirstName"><b>First name</b></label>
+                                <input id="newFirstName" class="form-control" placeholder="First name" required>
                                 <br>
-                                <label for="lastNameNew"><b>Last name</b></label>
-                                <input class="form-control" placeholder="Last name" id="lastNameNew" required>
+                                <label for="newLastName"><b>Last name</b></label>
+                                <input id="newLastName" class="form-control" placeholder="Last name" required>
                                 <br>
-                                <label for="ageNew"><b>Age</b></label>
-                                <input class="form-control" placeholder="Age" id="ageNew" required>
+                                <label for="newAge"><b>Age</b></label>
+                                <input id="newAge" class="form-control" placeholder="Age" required>
                                 <br>
-                                <label for="emailNew"><b>Email</b></label>
-                                <input class="form-control weigth-50" placeholder="Email" id="emailNew" required>
+                                <label for="newEmail"><b>Email</b></label>
+                                <input id="newEmail" class="form-control weigth-50" placeholder="Email" required>
                                 <br>
-                                <label for="passwordNew"><b>Password</b></label>
-                                <input class="form-control" placeholder="Password" id="passwordNew" required>
+                                <label for="newPassword"><b>Password</b></label>
+                                <input id="newPassword" class="form-control" placeholder="Password" required>
                                 <br>
-                                <label for="roleNew"><b>Role</b></label>
-                                <select class="form-control" multiple size="2" name="role" id="roleNew">
+                                <label for="newRoles"><b>Roles</b></label>
+                                <select id="newRoles" class="form-control" multiple size="2" name="roles" required>
                                     <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                                     <option value="ROLE_USER">ROLE_USER</option>
                                 </select>
-                            </form>
                             <br>
-                            <button type="submit" class="btn btn-success">Add new user
-                            </button>
+                            <button type="submit" class="btnNew btn btn-success">Add new user</button>
+                            </form>
                         </div>
                     </div>
                 </div>
