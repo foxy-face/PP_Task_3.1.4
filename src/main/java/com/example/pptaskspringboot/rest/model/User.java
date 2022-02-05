@@ -147,12 +147,14 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(String roleName) {
+    public void setRoles(Set<Role> roles) {
         this.roles = new HashSet<>();
-        if (roleName.contains("ROLE_ADMIN")){
-            this.roles.add(new Role ("ROLE_ADMIN"));
-        } else if (roleName.contains("ROLE_USER")){
-            this.roles.add(new Role ("ROLE_USER"));
+        for (Role role: roles) {
+            if (role.getRoleName().contains("ROLE_ADMIN")) {
+                this.roles.add(new Role("ROLE_ADMIN"));
+            } else if (role.getRoleName().contains("ROLE_USER")) {
+                this.roles.add(new Role("ROLE_USER"));
+            }
         }
     }
 }

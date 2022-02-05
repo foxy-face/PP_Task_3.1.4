@@ -171,3 +171,15 @@ newUser.addEventListener('submit', (e) => {
         .then(response => response.json())
         .then(response => location.reload())
 })
+
+// let rezultRoles = ''
+//
+// const roleMassive = (roles) => {
+//     roles.forEach(role => {
+//         rezultRoles += `"[{
+//                 "roleName": "${role.roleName}"
+//             }]
+//         `
+//     })
+//     return rezultRoles;
+// }
