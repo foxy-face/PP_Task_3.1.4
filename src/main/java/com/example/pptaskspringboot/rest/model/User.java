@@ -28,7 +28,6 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotNull
     @Column(name = "password")
     private String password;
 

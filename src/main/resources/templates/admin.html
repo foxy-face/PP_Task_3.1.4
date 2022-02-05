@@ -90,42 +90,45 @@
                             </tbody>
                         </table>
                     </div>
-                    <!--Модальный элемент с id=”editUser”-->
-                    <div id="modalUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <!--------------------------Модальный элемент с id=”editUser”--------------------------------->
+                    <div id="editUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">User</h5>
+                                    <h5 class="modal-title">Edit user</h5>
                                     <button type="button" class="btn-close" data-dismiss="modal"
                                             aria-label="Close">
                                     </button>
                                 </div>
                                 <div class="modal-body col-md text-center">
                                     <form>
-                                        <label for="firstName"><b>First name</b></label>
-                                        <input id="firstName" type="text" class="form-control" required>
+                                        <label for="editId"><b>Id</b></label>
+                                        <input id="editId" type="number" class="form-control" readonly>
                                         <br>
-                                        <label for="lastName"><b>Last name</b></label>
-                                        <input id="lastName" type="text" class="form-control" required>
+                                        <label for="editFirstName"><b>First name</b></label>
+                                        <input id="editFirstName" type="text" class="form-control" required>
                                         <br>
-                                        <label for="age"><b>Age</b></label>
-                                        <input id="age" type="number" class="form-control" required>
+                                        <label for="editLastName"><b>Last name</b></label>
+                                        <input id="editLastName" type="text" class="form-control" required>
                                         <br>
-                                        <label for="email"><b>Email</b></label>
-                                        <input id="email" type="email" class="form-control" required>
+                                        <label for="editAge"><b>Age</b></label>
+                                        <input id="editAge" type="number" class="form-control" required>
                                         <br>
-                                        <label for="password"><b>Password</b></label>
-                                        <input id="password" type="password" class="form-control" required>
+                                        <label for="editEmail"><b>Email</b></label>
+                                        <input id="editEmail" type="email" class="form-control" required>
                                         <br>
-                                        <label for="role"><b>Role</b></label>
-                                        <select id="role" class="form-control" multiple size="2" name="role">
+                                        <label for="editPassword"><b>Password</b></label>
+                                        <input id="editPassword" type="password" class="form-control" required>
+                                        <br>
+                                        <label for="editRoles"><b>Roles</b></label>
+                                        <select id="editRoles" class="form-control" multiple size="2" name="roles">
                                             <option value="ROLE_ADMIN">ROLE_ADMIN</option>
                                             <option value="ROLE_USER">ROLE_USER</option>
                                         </select>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Edit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -133,8 +136,55 @@
                         </div>
                     </div>
                     <!---------------------Конец модального окна editUser и deleteUser----------------------------------------------------------------->
+
+                    <!--Модальный элемент с id=”deleteUser”-->
+                    <div id="deleteUser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Delete user</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal"
+                                            aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body col-md text-center">
+                                    <form>
+                                        <label for="deleteId"><b>Id</b></label>
+                                        <input id="deleteId" type="number" class="form-control" readonly>
+                                        <br>
+                                        <label for="deleteFirstName"><b>First name</b></label>
+                                        <input id="deleteFirstName" type="text" class="form-control" readonly>
+                                        <br>
+                                        <label for="deleteLastName"><b>Last name</b></label>
+                                        <input id="deleteLastName" type="text" class="form-control" readonly>
+                                        <br>
+                                        <label for="deleteAge"><b>Age</b></label>
+                                        <input id="deleteAge" type="number" class="form-control" readonly>
+                                        <br>
+                                        <label for="deleteEmail"><b>Email</b></label>
+                                        <input id="deleteEmail" type="email" class="form-control" readonly>
+                                        <br>
+                                        <label for="deletePassword"><b>Password</b></label>
+                                        <input id="deletePassword" type="password" class="form-control" readonly>
+                                        <br>
+                                        <label for="deleteRoles"><b>Roles</b></label>
+                                        <select id="deleteRoles" class="form-control" multiple size="2" name="roles" readonly>
+                                            <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                            <option value="ROLE_USER">ROLE_USER</option>
+                                        </select>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-------------------------------КОНЕЦ модального элемента с id=”deleteUser”------------------------------------>
                 </div>
-                <!--Вкладка добавления нового юзера id="newUser"-->
+
                 <div id="newUser" class="tab-pane fade">
                     <h5 class="card-header">New user</h5>
                     <br>

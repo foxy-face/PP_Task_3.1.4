@@ -7,7 +7,7 @@ function roleOfUser(roles) {
     for (let temp of roles) {
         role += temp.roleName;
         if (roles.length > 1) {
-            role += ", ";
+            role += " ";
         }
     }
     return role;
@@ -43,31 +43,27 @@ getUsers()
 
 //-------------------------------КОНЕЦ----------Заполнение таблицы строками--------------------------------------------
 
-const modalUser = document.getElementById('modalUser')
-const modalBootstrap = new bootstrap.Modal(modalUser)
-const newUser = document.getElementById('newUser')
-const linkNewUser = document.getElementById('linkNewUser')
-// const modalUser = new bootstrap.Modal(document.getElementById('modalUser'))
-// const form = document.querySelector('form')
-// const id = document.getElementById('id')
-const firstName = document.getElementById('firstName')
-const lastName = document.getElementById('lastName')
-const age = document.getElementById('age')
-const email = document.getElementById('email')
-const password = document.getElementById('password')
-const role = document.getElementById('role')
+const editUser = document.getElementById('editUser')
+const modalEditBootstrap = new bootstrap.Modal(editUser)
+const editId = document.getElementById('editId')
+const editFirstName = document.getElementById('editFirstName')
+const editLastName = document.getElementById('editLastName')
+const editAge = document.getElementById('editAge')
+const editEmail = document.getElementById('editEmail')
+const editPassword = document.getElementById('editPassword')
+const editRoles = document.getElementById('editRoles')
+
 let option = ''
 
-// linkNewUser.addEventListener('click', () => {
-//     id.value = ''
-//     firstName.value = ''
-//     lastName.value = ''
-//     age.value = ''
-//     email.value = ''
-//     passwordEdit.value = ''
-//     newUser.show()
-//     option = 'create'
-// })
+const deleteUser = document.getElementById('deleteUser')
+const modalDeleteBootstrap = new bootstrap.Modal(deleteUser)
+const deleteId = document.getElementById('deleteId')
+const deleteFirstName = document.getElementById('deleteFirstName')
+const deleteLastName = document.getElementById('deleteLastName')
+const deleteAge = document.getElementById('deleteAge')
+const deleteEmail = document.getElementById('deleteEmail')
+const deletePassword = document.getElementById('deletePassword')
+const deleteRoles = document.getElementById('deleteRoles')
 
 const on = (element, event, selector, handler) => {
     element.addEventListener(event, e => {
@@ -89,14 +85,14 @@ on(document, 'click', '.btnEdit', e => {
     const emailForm = fila.children[4].innerHTML
     const passwordForm = fila.children[5].innerHTML
     const roleForm = fila.children[6].innerHTML
-    firstName.value = firstNameForm
-    lastName.value = lastNameForm
-    age.value = ageForm
-    email.value = emailForm
-    password.value = passwordForm
-    role.value = roleForm
-    option = 'edit'
-    modalBootstrap.show()
+    editId.value = idUser
+    editFirstName.value = firstNameForm
+    editLastName.value = lastNameForm
+    editAge.value = ageForm
+    editEmail.value = emailForm
+    editPassword.value = passwordForm
+    editPassword.value = roleForm
+    modalEditBootstrap.show()
 })
 
 on(document, 'click', '.btnDelete', e => {
@@ -108,62 +104,44 @@ on(document, 'click', '.btnDelete', e => {
     const emailForm = fila.children[4].innerHTML
     const passwordForm = fila.children[5].innerHTML
     const roleForm = fila.children[6].innerHTML
-    firstName.value = firstNameForm
-    lastName.value = lastNameForm
-    age.value = ageForm
-    email.value = emailForm
-    password.value = passwordForm
-    role.value = roleForm
-    option = 'delete'
-    modalBootstrap.show()
+    deleteId.value = idUser
+    deleteFirstName.value = firstNameForm
+    deleteLastName.value = lastNameForm
+    deleteAge.value = ageForm
+    deleteEmail.value = emailForm
+    deletePassword.value = passwordForm
+    deleteRoles.value = roleForm
+    modalDeleteBootstrap.show()
 })
 
-modalUser.addEventListener('submit', (e) => {
+editUser.addEventListener('submit', (e) => {
     e.preventDefault()
-    if (option === 'edit') {
-        fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({
-                id: idUser,
-                firstName: firstName.value,
-                lastName: lastName.value,
-                age: age.value,
-                email: email.value,
-                password: password.value,
-                role: role.value
-            })
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+            id: idUser,
+            firstName: editFirstName.value,
+            lastName: editLastName.value,
+            age: editAge.value,
+            email: editEmail.value,
+            password: editPassword.value,
+            roles: editRoles.value
         })
-            .then(response => response.json())
-            .then(response => location.reload())
-    }
-    if (option === 'delete') {
-        fetch(url + "/" + idUser, {
-            method: 'DELETE'
-        })
-            .then(response => response.json())
-            .then(response => location.reload())
-    }
-    // if (option === 'create') {
-    //     fetch(url, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=utf-8'
-    //         },
-    //         body: JSON.stringify({
-    //             firstName: firstName.value,
-    //             lastName: lastName.value,
-    //             age: age.value,
-    //             email: email.value,
-    //             password: password.value,
-    //             role: role.value
-    //         })
-    //     })
-    //         .then(response => response.json())
-    //         .then(responsw => location.reload())
-    // }
-    modalBootstrap.hide()
+    })
+        .then(response => response.json())
+        .then(response => location.reload())
+    modalEditBootstrap.hide()
 })
 
+deleteUser.addEventListener('submit', (e) => {
+    e.preventDefault()
+    fetch(url + "/" + idUser, {
+        method: 'DELETE'
+    })
+        .then(response => response.json())
+        .then(response => location.reload())
+    modalDeleteBootstrap.hide()
+})
