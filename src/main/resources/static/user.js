@@ -22,18 +22,29 @@ async function getOneUser() {
 
 getOneUser()
 
-let url = 'http://localhost:8080/admin/users/authorized'
+let urlAuth = 'http://localhost:8080/admin/users/authorized'
 
-async function navInfoAdmin() {
+function roleOfUser(roles) {
+    let role = "";
+    for (let temp of roles) {
+        role += temp.roleName;
+        if (roles.length > 1) {
+            role += " ";
+        }
+    }
+    return role;
+}
+
+async function navInfoUser() {
     const response = await fetch(urlAuth)
     const authUser = await response.json();
 
-    let infoUsername = document.getElementById("infoUsername")
-    infoUsername.innerHTML = authUser.email
+    // let infoUsername = document.getElementById("oneUserRoles")
+    // infoUsername.innerHTML = authUser.email
 
-    let infoRoles = document.getElementById("infoRoles")
+    let oneUserRoles = document.getElementById("oneUserRoles")
     let roleList = authUser.roles
-    infoRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
+    oneUserRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
 }
 
-navInfoAdmin()
+navInfoUser()
