@@ -21,3 +21,19 @@ async function getOneUser() {
 }
 
 getOneUser()
+
+let url = 'http://localhost:8080/admin/users/authorized'
+
+async function navInfoAdmin() {
+    const response = await fetch(urlAuth)
+    const authUser = await response.json();
+
+    let infoUsername = document.getElementById("infoUsername")
+    infoUsername.innerHTML = authUser.email
+
+    let infoRoles = document.getElementById("infoRoles")
+    let roleList = authUser.roles
+    infoRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
+}
+
+navInfoAdmin()

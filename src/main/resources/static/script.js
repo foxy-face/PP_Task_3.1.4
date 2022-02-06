@@ -1,6 +1,6 @@
 let urlAuth = 'http://localhost:8080/admin/users/authorized'
 
-async function navInfo() {
+async function navInfoAdmin() {
     const response = await fetch(urlAuth)
     const authUser = await response.json();
 
@@ -12,11 +12,8 @@ async function navInfo() {
     infoRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
 }
 
-navInfo()
+navInfoAdmin()
 
-//----------------------------------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------------------------------------
 const allUsersBody = document.getElementById('allUsersBody')
 let rezult = ''
 const url = 'http://localhost:8080/admin/users'
