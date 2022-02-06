@@ -1,15 +1,21 @@
 let urlAuth = 'http://localhost:8080/admin/users/authorized'
-
+let userInfo = ' with roles: '
 // <span id="infoUsername"> with roles: </span>
 // <span id="infoRoles"></span>
 async function navInfo() {
     const response = await fetch(urlAuth)
     const userAuth = await response.json()
-    let infoUsername = document.getElementById("infoUsername");
-    infoUsername.innerHTML = userAuth.email;
-}
-navInfo()
 
+    let infoUsername = document.getElementById("infoUsername")
+    infoUsername.innerHTML = userAuth.email
+
+    let infoRoles = document.getElementById("infoRoles")
+    let roleList = userAuth.roles
+    infoRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
+}
+
+navInfo()
+//----------------------------------------------------------------------------------------------------------
 const bodyUser = document.getElementById("bodyUser")
 let rezultUser = ''
 
