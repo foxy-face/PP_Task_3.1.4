@@ -51,11 +51,37 @@ const on = (element, event, selector, handler) => {
         }
     })
 }
+
 const urlRoles = 'http://localhost:8080/api/roles'
+const selectRoles = document.getElementById('selectRoles')
+const selectNew = document.getElementById('newRoles')
+
+async function getRoles() {
+    const responseRoles = await fetch(urlRoles)
+    const allRoles = await responseRoles.json()
+    for (let i = 0; i < allRoles.length; i++) {
+        let text = allRoles[i].roleName.replace("ROLE_", "");
+        // получаем значение для элемента, stringify() для преобразования объектов в JSON
+        let json = JSON.stringify(allRoles[i])
+        // создаем новый элемента, где text будет помещен между ><, а json в option
+        selectRoles.options[i] = new Option(text, json)
+    }
+}
+
+async function getNewRoles() {
+    const responseRoles = await fetch(urlRoles)
+    const allRoles = await responseRoles.json()
+    for (let i = 0; i < allRoles.length; i++) {
+        let text = allRoles[i].roleName.replace("ROLE_", "");
+        // получаем значение для элемента, stringify() для преобразования объектов в JSON
+        let json = JSON.stringify(allRoles[i])
+        // создаем новый элемента, где text будет помещен между ><, а json в option
+        selectNew.options[i] = new Option(text, json)
+    }
+}
 
 const editUser = document.getElementById('editUser')
 const modalEditBootstrap = new bootstrap.Modal(editUser)
-const select = document.getElementById('editRoles')
 
 const editId = document.getElementById('editId')
 const editFirstName = document.getElementById('editFirstName')
@@ -67,13 +93,6 @@ const editPassword = document.getElementById('editPassword')
 let idUser = 0
 
 on(document, 'click', '.btnEdit', async e => {
-
-    const responseRoles = await fetch(urlRoles)
-    const allRoles = await responseRoles.json()
-
-    // alert(allRoles)
-    // alert(JSON.stringify(allRoles))
-
     const fila = e.target.parentNode.parentNode
     idUser = fila.children[0].innerHTML
     const firstNameForm = fila.children[1].innerHTML
@@ -81,26 +100,19 @@ on(document, 'click', '.btnEdit', async e => {
     const ageForm = fila.children[3].innerHTML
     const emailForm = fila.children[4].innerHTML
     const passwordForm = fila.children[5].innerHTML
-
     editId.value = idUser
     editFirstName.value = firstNameForm
     editLastName.value = lastNameForm
     editAge.value = ageForm
     editEmail.value = emailForm
     editPassword.value = passwordForm
-    for (let i = 0; i < allRoles.length; i++) {
-        let text = allRoles[i].roleName.replace("ROLE_", "");
-        // получаем значение для элемента, stringify() для преобразования объектов в JSON
-        let json = JSON.stringify(allRoles[i])
-        // создаем новый элемента, где text будет помещен между ><, а json в option
-        select.options[i] = new Option(text, json)
-    }
+    getRoles()
     modalEditBootstrap.show()
 })
 
 editUser.addEventListener('submit', async e => {
     e.preventDefault()
-    const options = select.selectedOptions
+    const options = selectRoles.selectedOptions
     const values = Array.from(options).map(({value}) => value)
     const roleListJSON = '[' + values + ']'
     //для преобразования JSON обратно в объект
@@ -136,7 +148,6 @@ const deleteLastName = document.getElementById('deleteLastName')
 const deleteAge = document.getElementById('deleteAge')
 const deleteEmail = document.getElementById('deleteEmail')
 const deletePassword = document.getElementById('deletePassword')
-const deleteRoles = document.getElementById('deleteRoles')
 
 on(document, 'click', '.btnDelete',  e => {
     const fila = e.target.parentNode.parentNode
@@ -146,14 +157,13 @@ on(document, 'click', '.btnDelete',  e => {
     const ageForm = fila.children[3].innerHTML
     const emailForm = fila.children[4].innerHTML
     const passwordForm = fila.children[5].innerHTML
-    const roleForm = fila.children[6].innerHTML
     deleteId.value = idUser
     deleteFirstName.value = firstNameForm
     deleteLastName.value = lastNameForm
     deleteAge.value = ageForm
     deleteEmail.value = emailForm
     deletePassword.value = passwordForm
-    deleteRoles.value = roleForm
+    getRoles()
     modalDeleteBootstrap.show()
 })
 
@@ -173,7 +183,6 @@ const newLastName = document.getElementById('newLastName')
 const newAge = document.getElementById('newAge')
 const newEmail = document.getElementById('newEmail')
 const newPassword = document.getElementById('newPassword')
-const selectNew = document.getElementById('newRoles')
 
 newUser.addEventListener('submit', async e => {
     e.preventDefault()
