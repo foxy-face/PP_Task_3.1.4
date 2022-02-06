@@ -1,7 +1,5 @@
 let urlAuth = 'http://localhost:8080/admin/users/authorized'
-let userInfo = ' with roles: '
-// <span id="infoUsername"> with roles: </span>
-// <span id="infoRoles"></span>
+
 async function navInfo() {
     const response = await fetch(urlAuth)
     const userAuth = await response.json()
@@ -15,13 +13,29 @@ async function navInfo() {
 }
 
 navInfo()
+
 //----------------------------------------------------------------------------------------------------------
 const bodyUser = document.getElementById("bodyUser")
 let rezultUser = ''
 
+async function userInfo(user) {
+    rezultUser += `<tr>
+                            <td>${user.id}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                            <td>${user.age}</td>
+                            <td>${user.email}</td>
+                            <td>${roleOfUser(user.roles)}</td>
+                       </tr>
+        `
+    bodyUser.innerHTML = rezult
+}
+
+
+userInfo()
 
 //------------------------------------------------------------------------------------------------------------
-const tbody = document.querySelector('tbody')
+const allUsersBody = document.getElementById('allUsersBody')
 let rezult = ''
 const url = 'http://localhost:8080/admin/users'
 
@@ -49,7 +63,7 @@ const usersRows = (users) => {
                        </tr>
         `
     })
-    tbody.innerHTML = rezult
+    allUsersBody.innerHTML = rezult
 }
 
 async function getUsers() {
