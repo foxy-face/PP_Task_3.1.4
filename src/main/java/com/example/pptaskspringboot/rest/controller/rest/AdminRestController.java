@@ -56,8 +56,8 @@ public class AdminRestController {
         return "User with id = " + id + " was delete";
     }
 
-    @GetMapping("/users/authorized")
-    public ResponseEntity<User> authUser(@AuthenticationPrincipal User user){
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+//    @GetMapping("/users/authorized")
+//    public ResponseEntity<User> authUser(@AuthenticationPrincipal User user){
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 }

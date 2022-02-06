@@ -1,4 +1,4 @@
-let urlAuth = 'http://localhost:8080/admin/users/authorized'
+let urlAuth = 'http://localhost:8080/api/authorized'
 
 async function navInfoAdmin() {
     const response = await fetch(urlAuth)

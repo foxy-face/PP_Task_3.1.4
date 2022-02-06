@@ -29,7 +29,7 @@ async function userInfo() {
 
 userInfo()
 
-let urlAuth = 'http://localhost:8080/admin/users/authorized'
+let urlAuth = 'http://localhost:8080/api/authorized'
 
 async function navInfoUser() {
     const response = await fetch(urlAuth)
