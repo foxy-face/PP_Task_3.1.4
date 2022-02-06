@@ -31,19 +31,16 @@
     </div>
 </nav>
 
-<!--Контейнер (container-fluid - на всю ширину) - вся панель из 12 колонок, разбиваем её на col-md-2 + col-md-10-->
 <div class="container-fluid">
     <div class="row">
-        <!--Левая часть админ-панели из 2 колонок строки на всю ширину-->
+        <!--Левая боковая панель-->
         <div class="col-lg-2 px-0">
-            <!--            nav-pills - подушка для подсвечивания-->
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <!--                    nav-link active подсвечивает указанную ссылку-->
-                    <a class="nav-link active" aria-current="page">Admin</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/admin}">Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">User</a>
+                    <a class="nav-link" th:href="@{/user}">User</a>
                 </li>
             </ul>
         </div>

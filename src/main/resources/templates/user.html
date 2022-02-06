@@ -27,12 +27,18 @@
 <!--</nav>-->
 
 <!--вся панель из 12 колонок, разбиваем её на col-md-2 + col-md-10-->
-<div class="container-fluid">
+<<div class="container-fluid">
     <div class="row">
+        <!--Левая боковая панель-->
         <div class="col-lg-2 px-0">
             <ul class="nav nav-pills flex-column">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{/admin}">Admin</a>
+                    </li>
+                </div>
                 <li class="nav-item">
-                    <a class="nav-link active">User</a>
+                    <a class="nav-link active" th:href="@{/user}">User</a>
                 </li>
             </ul>
         </div>
@@ -60,7 +66,7 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<script src="user.js"></script>
 
 </body>
 </html>
