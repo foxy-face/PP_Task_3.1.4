@@ -2,13 +2,13 @@ let urlAuth = 'http://localhost:8080/admin/users/authorized'
 
 async function navInfo() {
     const response = await fetch(urlAuth)
-    const userAuth = await response.json()
+    const authUser = await response.json();
 
     let infoUsername = document.getElementById("infoUsername")
-    infoUsername.innerHTML = userAuth.email
+    infoUsername.innerHTML = authUser.email
 
     let infoRoles = document.getElementById("infoRoles")
-    let roleList = userAuth.roles
+    let roleList = authUser.roles
     infoRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
 }
 
@@ -31,8 +31,13 @@ async function userInfo(user) {
     bodyUser.innerHTML = rezult
 }
 
+async function getOneUser() {
+    const response = await fetch(urlAuth)
+    const authUser = await response.json();
+    const oneUser = await userInfo(authUser)
+}
 
-userInfo()
+getOneUser()
 
 //------------------------------------------------------------------------------------------------------------
 const allUsersBody = document.getElementById('allUsersBody')
