@@ -1,4 +1,4 @@
-package com.example.pptaskspringboot.rest.controller;
+package com.example.pptaskspringboot.rest.controller.rest;
 
 import com.example.pptaskspringboot.rest.model.Role;
 import com.example.pptaskspringboot.rest.service.AppService;

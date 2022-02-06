@@ -19,9 +19,9 @@
 
 <nav class="navbar navbar-dark bg-dark text-white">
     <div class="container-fluid">
-        <span>
-            <span sec:authentication="name"></span>
-            <span th:text="'with roles: '"></span>
+        <span id="infoAboutUser">
+            <span id="infoUsername"></span>
+            <span id="infoRoles"></span>
         </span>
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item">

@@ -37,11 +37,9 @@ public class User implements UserDetails {
 
     @NotNull
     @Email(message = "Email should be valid")
-    @Column(name = "email", unique = true)// уникальное значение
+    @Column(name = "email", unique = true)
     private String email;
 
-    //это прямая часть ссылки, которая обычно сериализуется
-//    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinTable(

@@ -1,3 +1,20 @@
+let urlAuth = 'http://localhost:8080/admin/users/authorized'
+
+// <span id="infoUsername"> with roles: </span>
+// <span id="infoRoles"></span>
+async function navInfo() {
+    const response = await fetch(urlAuth)
+    const userAuth = await response.json()
+    let infoUsername = document.getElementById("infoUsername");
+    infoUsername.innerHTML = userAuth.email;
+}
+navInfo()
+
+const bodyUser = document.getElementById("bodyUser")
+let rezultUser = ''
+
+
+//------------------------------------------------------------------------------------------------------------
 const tbody = document.querySelector('tbody')
 let rezult = ''
 const url = 'http://localhost:8080/admin/users'
@@ -162,7 +179,7 @@ const deleteAge = document.getElementById('deleteAge')
 const deleteEmail = document.getElementById('deleteEmail')
 const deletePassword = document.getElementById('deletePassword')
 
-on(document, 'click', '.btnDelete',  e => {
+on(document, 'click', '.btnDelete', e => {
     const fila = e.target.parentNode.parentNode
     idUser = fila.children[0].innerHTML
     const firstNameForm = fila.children[1].innerHTML
@@ -180,9 +197,9 @@ on(document, 'click', '.btnDelete',  e => {
     modalDeleteBootstrap.show()
 })
 
-deleteUser.addEventListener('submit', async e =>  {
+deleteUser.addEventListener('submit', async e => {
     // alert("here")
-    const fila = document.getElementById('row'+idUser)
+    const fila = document.getElementById('row' + idUser)
     // alert('row'+idUser)
     fila.parentElement.removeChild(fila)
     await fetch(url + "/" + idUser, {

@@ -1,4 +1,4 @@
-package com.example.pptaskspringboot.rest.controller;
+package com.example.pptaskspringboot.rest.controller.rest;
 
 import com.example.pptaskspringboot.rest.exception_handling.NoSuchUserException;
 import com.example.pptaskspringboot.rest.model.User;
@@ -7,17 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 @RestController
 @RequestMapping("/admin")
-public class MyRestController {
+public class AdminRestController {
     private final AppService appService;
 
     @Autowired
-    public MyRestController(AppService appService) {
+    public AdminRestController(AppService appService) {
         this.appService = appService;
     }
 
@@ -32,15 +35,15 @@ public class MyRestController {
     }
 
     @PostMapping("/users")
-    public User addNewUser(@RequestBody User user) {
+    public ResponseEntity<User> addNewUser(@Valid @RequestBody User user) {
         appService.add(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/users")
-    public User updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
         appService.update(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
@@ -51,5 +54,10 @@ public class MyRestController {
         }
         appService.delete(id);
         return "User with id = " + id + " was delete";
+    }
+
+    @GetMapping("/users/authorized")
+    public ResponseEntity<User> authUser(@AuthenticationPrincipal User user){
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
