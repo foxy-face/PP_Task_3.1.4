@@ -158,23 +158,13 @@ on(document, 'click', '.btnDelete',  e => {
 })
 
 deleteUser.addEventListener('click', async (e) =>  {
-    alert("here")
+    // alert("here")
     const fila = document.getElementById('row'+idUser)
-    alert('row'+idUser)
+    // alert('row'+idUser)
     fila.parentElement.removeChild(fila)
     await fetch(url + "/" + idUser, {
         method: 'DELETE'
     })
-})
-
-deleteUser.addEventListener('submit', (e) => {
-    e.preventDefault()
-    fetch(url + "/" + idUser, {
-        method: 'DELETE'
-    })
-        .then(response => response.json())
-        .then(response => location.reload())
-    modalDeleteBootstrap.hide()
 })
 
 const newUser = document.getElementById('newUser')
