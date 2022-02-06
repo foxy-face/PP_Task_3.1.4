@@ -105,14 +105,14 @@ editUser.addEventListener('submit', async e => {
     const roleListJSON = '[' + values + ']'
     //для преобразования JSON обратно в объект
     const roleList = JSON.parse(roleListJSON);
-    const user = {}
-    user.id = idUser
-    user.firstName = editFirstName.value
-    user.lastName = editLastName.value
-    user.age = editAge.value
-    user.email = editEmail.value
-    user.password = editPassword.value
-    user.roles = roleList
+    const editUser = {}
+    editUser.id = idUser
+    editUser.firstName = editFirstName.value
+    editUser.lastName = editLastName.value
+    editUser.age = editAge.value
+    editUser.email = editEmail.value
+    editUser.password = editPassword.value
+    editUser.roles = roleList
     // alert(JSON.stringify({
     //     user
     // }))
@@ -121,7 +121,7 @@ editUser.addEventListener('submit', async e => {
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(editUser)
     })
     const responseJSON = await response.json()
     const rl = await location.reload()
@@ -157,7 +157,7 @@ on(document, 'click', '.btnDelete',  e => {
     modalDeleteBootstrap.show()
 })
 
-deleteUser.addEventListener('click', async (e) =>  {
+deleteUser.addEventListener('click', async e =>  {
     // alert("here")
     const fila = document.getElementById('row'+idUser)
     // alert('row'+idUser)
@@ -173,40 +173,28 @@ const newLastName = document.getElementById('newLastName')
 const newAge = document.getElementById('newAge')
 const newEmail = document.getElementById('newEmail')
 const newPassword = document.getElementById('newPassword')
-const newRoles = document.getElementById('newRoles')
+const selectNew = document.getElementById('newRoles')
 
-newUser.addEventListener('submit', (e) => {
+newUser.addEventListener('submit', async e => {
     e.preventDefault()
-    fetch(url, {
+    const options = selectNew.selectedOptions
+    const values = Array.from(options).map(({value}) => value)
+    const roleListJSON = '[' + values + ']'
+    const roleList = JSON.parse(roleListJSON)
+    const newUser = {}
+    newUser.firstName = newFirstName.value
+    newUser.lastName = newLastName.value
+    newUser.age = newAge.value
+    newUser.email = newEmail.value
+    newUser.password = newPassword.value
+    newUser.roles = roleList
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify({
-            firstName: newFirstName.value,
-            lastName: newLastName.value,
-            age: newAge.value,
-            email: newEmail.value,
-            password: newPassword.value,
-            roles: [{
-                "roleName": "ROLE_ADMIN"
-            }, {
-                "roleName": "ROLE_USER"
-            }]
-        })
+        body: JSON.stringify(newUser)
     })
-        .then(response => response.json())
-        .then(response => location.reload())
+    const rs = await response.json()
+    const rl = await location.reload()
 })
-
-// let rezultRoles = ''
-//
-// const roleMassive = (roles) => {
-//     roles.forEach(role => {
-//         rezultRoles += `"[{
-//                 "roleName": "${role.roleName}"
-//             }]
-//         `
-//     })
-//     return rezultRoles;
-// }

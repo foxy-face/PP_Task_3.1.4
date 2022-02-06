@@ -115,11 +115,9 @@
                                         <label for="editPassword"><b>Password</b></label>
                                         <input id="editPassword" type="password" class="form-control" required>
                                         <br>
-                                        <div class="userRolelist">
                                             <label for="editRoles"><b>Roles</b></label>
                                             <select id="editRoles" class="form-control" multiple size="2" name="roles" required>
                                             </select>
-                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                             </button>
@@ -201,11 +199,11 @@
                                 <label for="newPassword"><b>Password</b></label>
                                 <input id="newPassword" class="form-control" placeholder="Password" required>
                                 <br>
-                                <div class="userRolelist">
-                                    <label for="newRoles"><b>Roles</b></label>
-                                    <select id="newRoles" class="form-control" multiple size="2" name="roles" required>
-                                    </select>
-                                </div>
+                                <label for="newRoles"><b>Roles</b></label>
+                                <select id="newRoles" class="form-control" multiple size="2" name="roles" readonly>
+                                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                    <option value="ROLE_USER">ROLE_USER</option>
+                                </select>
                             <br>
                             <button type="submit" class="btnNew btn btn-success">Add new user</button>
                             </form>
