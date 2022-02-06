@@ -15,7 +15,7 @@ function roleOfUser(roles) {
 
 const usersRows = (users) => {
     users.forEach(user => {
-        rezult += `<tr>
+        rezult += `<tr id="row${user.id}">
                             <td>${user.id}</td>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
@@ -55,7 +55,6 @@ const urlRoles = 'http://localhost:8080/api/roles'
 
 const editUser = document.getElementById('editUser')
 const modalEditBootstrap = new bootstrap.Modal(editUser)
-// const modalRolesSelector = editUser.querySelector('.userRolelist select')
 const select = document.getElementById('editRoles')
 
 const editId = document.getElementById('editId')
@@ -72,8 +71,8 @@ on(document, 'click', '.btnEdit', async e => {
     const responseRoles = await fetch(urlRoles)
     const allRoles = await responseRoles.json()
 
-    alert(allRoles)
-    alert(JSON.stringify(allRoles))
+    // alert(allRoles)
+    // alert(JSON.stringify(allRoles))
 
     const fila = e.target.parentNode.parentNode
     idUser = fila.children[0].innerHTML
@@ -89,46 +88,45 @@ on(document, 'click', '.btnEdit', async e => {
     editAge.value = ageForm
     editEmail.value = emailForm
     editPassword.value = passwordForm
-    for(let i = 0; i < allRoles.length; i++){
+    for (let i = 0; i < allRoles.length; i++) {
         let text = allRoles[i].roleName.replace("ROLE_", "");
-        // получаем значение для элемента
+        // получаем значение для элемента, stringify() для преобразования объектов в JSON
         let json = JSON.stringify(allRoles[i])
-        // создаем новый элемента
+        // создаем новый элемента, где text будет помещен между ><, а json в option
         select.options[i] = new Option(text, json)
-        // modalRolesSelector[i].value = new Option(text, json)
     }
     modalEditBootstrap.show()
 })
 
-editUser.addEventListener('submit', (e) => {
+editUser.addEventListener('submit', async e => {
     e.preventDefault()
-    const options= select.selectedOptions
-    const values = Array.from(options).map(({ value }) => value)
-    const roleListJSON ='['+values+']'
+    const options = select.selectedOptions
+    const values = Array.from(options).map(({value}) => value)
+    const roleListJSON = '[' + values + ']'
+    //для преобразования JSON обратно в объект
     const roleList = JSON.parse(roleListJSON);
     const user = {}
-    user.id=idUser
-    user.firstName=editFirstName.value
-    user.lastName=editLastName.value
-    user.age=editAge.value
-    user.email=editEmail.value
-    user.password=editPassword.value
-    user.roles=roleList
-    alert(JSON.stringify({
-        user
-    }))
-    fetch(url, {
+    user.id = idUser
+    user.firstName = editFirstName.value
+    user.lastName = editLastName.value
+    user.age = editAge.value
+    user.email = editEmail.value
+    user.password = editPassword.value
+    user.roles = roleList
+    // alert(JSON.stringify({
+    //     user
+    // }))
+    const response = await fetch(url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(user)
     })
-        .then(response => response.json())
-        .then(response => location.reload())
+    const responseJSON = await response.json()
+    const rl = await location.reload()
     modalEditBootstrap.hide()
 })
-
 
 const deleteUser = document.getElementById('deleteUser')
 const modalDeleteBootstrap = new bootstrap.Modal(deleteUser)
@@ -140,7 +138,7 @@ const deleteEmail = document.getElementById('deleteEmail')
 const deletePassword = document.getElementById('deletePassword')
 const deleteRoles = document.getElementById('deleteRoles')
 
-on(document, 'click', '.btnDelete', e => {
+on(document, 'click', '.btnDelete',  e => {
     const fila = e.target.parentNode.parentNode
     idUser = fila.children[0].innerHTML
     const firstNameForm = fila.children[1].innerHTML
@@ -157,6 +155,16 @@ on(document, 'click', '.btnDelete', e => {
     deletePassword.value = passwordForm
     deleteRoles.value = roleForm
     modalDeleteBootstrap.show()
+})
+
+deleteUser.addEventListener('click', async (e) =>  {
+    alert("here")
+    const fila = document.getElementById('row'+idUser)
+    alert('row'+idUser)
+    fila.parentElement.removeChild(fila)
+    await fetch(url + "/" + idUser, {
+        method: 'DELETE'
+    })
 })
 
 deleteUser.addEventListener('submit', (e) => {
