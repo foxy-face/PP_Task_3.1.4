@@ -53,10 +53,11 @@ const on = (element, event, selector, handler) => {
 }
 
 const urlRoles = 'http://localhost:8080/api/roles'
-const selectRoles = document.getElementById('selectRoles')
+const selectEdit = document.getElementById('editRoles')
+const selectDelete = document.getElementById('deleteRoles')
 const selectNew = document.getElementById('newRoles')
 
-async function getRoles() {
+async function getEditRoles() {
     const responseRoles = await fetch(urlRoles)
     const allRoles = await responseRoles.json()
     for (let i = 0; i < allRoles.length; i++) {
@@ -64,7 +65,19 @@ async function getRoles() {
         // получаем значение для элемента, stringify() для преобразования объектов в JSON
         let json = JSON.stringify(allRoles[i])
         // создаем новый элемента, где text будет помещен между ><, а json в option
-        selectRoles.options[i] = new Option(text, json)
+        selectEdit.options[i] = new Option(text, json)
+    }
+}
+
+async function getDeleteRoles() {
+    const responseRoles = await fetch(urlRoles)
+    const allRoles = await responseRoles.json()
+    for (let i = 0; i < allRoles.length; i++) {
+        let text = allRoles[i].roleName.replace("ROLE_", "");
+        // получаем значение для элемента, stringify() для преобразования объектов в JSON
+        let json = JSON.stringify(allRoles[i])
+        // создаем новый элемента, где text будет помещен между ><, а json в option
+        selectDelete.options[i] = new Option(text, json)
     }
 }
 
@@ -106,13 +119,13 @@ on(document, 'click', '.btnEdit', async e => {
     editAge.value = ageForm
     editEmail.value = emailForm
     editPassword.value = passwordForm
-    getRoles()
+    getEditRoles()
     modalEditBootstrap.show()
 })
 
 editUser.addEventListener('submit', async e => {
     e.preventDefault()
-    const options = selectRoles.selectedOptions
+    const options = selectEdit.selectedOptions
     const values = Array.from(options).map(({value}) => value)
     const roleListJSON = '[' + values + ']'
     //для преобразования JSON обратно в объект
@@ -163,11 +176,11 @@ on(document, 'click', '.btnDelete',  e => {
     deleteAge.value = ageForm
     deleteEmail.value = emailForm
     deletePassword.value = passwordForm
-    getRoles()
+    getDeleteRoles()
     modalDeleteBootstrap.show()
 })
 
-deleteUser.addEventListener('click', async e =>  {
+deleteUser.addEventListener('submit', async e =>  {
     // alert("here")
     const fila = document.getElementById('row'+idUser)
     // alert('row'+idUser)
@@ -183,6 +196,8 @@ const newLastName = document.getElementById('newLastName')
 const newAge = document.getElementById('newAge')
 const newEmail = document.getElementById('newEmail')
 const newPassword = document.getElementById('newPassword')
+
+getNewRoles()
 
 newUser.addEventListener('submit', async e => {
     e.preventDefault()
