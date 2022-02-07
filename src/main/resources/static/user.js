@@ -1,10 +1,7 @@
-const bodyUser = document.getElementById("bodyUser")
-let rezultUser = ''
-
 function roleOfUser(roles) {
     let role = "";
     for (let temp of roles) {
-        role += temp.roleName
+        role += temp.roleName;
         if (roles.length > 1) {
             role += " ";
         }
@@ -12,8 +9,22 @@ function roleOfUser(roles) {
     return role;
 }
 
+async function navInfoUser() {
+    const response = await fetch('http://localhost:8080/api/authorized')
+    const authUser = await response.json();
+
+    const oneUserRoles = document.getElementById("oneUserRoles")
+    const roleList = authUser.roles
+    oneUserRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
+}
+
+navInfoUser()
+
+const bodyUser = document.getElementById("bodyUser")
+let rezultUser = ''
+
 async function userInfo() {
-    const response = await fetch(urlAuth)
+    const response = await fetch('http://localhost:8080/api/authorized')
     const authUser = await response.json();
     rezultUser += `<tr>
                             <td>${authUser.id}</td>
@@ -24,20 +35,8 @@ async function userInfo() {
                             <td>${roleOfUser(authUser.roles)}</td>
                        </tr>
         `
-    bodyUser.innerHTML = rezult
+    bodyUser.innerHTML = rezultUser
 }
 
 userInfo()
 
-let urlAuth = 'http://localhost:8080/api/authorized'
-
-async function navInfoUser() {
-    const response = await fetch(urlAuth)
-    const authUser = await response.json();
-
-    let oneUserRoles = document.getElementById("oneUserRoles")
-    let roleList = authUser.roles
-    oneUserRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
-}
-
-navInfoUser()

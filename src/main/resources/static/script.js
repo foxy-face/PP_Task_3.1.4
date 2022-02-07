@@ -1,14 +1,13 @@
-let urlAuth = 'http://localhost:8080/api/authorized'
 
 async function navInfoAdmin() {
-    const response = await fetch(urlAuth)
+    const response = await fetch('http://localhost:8080/api/authorized')
     const authUser = await response.json();
 
-    let infoUsername = document.getElementById("infoUsername")
+    const infoUsername = document.getElementById("infoUsername")
     infoUsername.innerHTML = authUser.email
 
-    let infoRoles = document.getElementById("infoRoles")
-    let roleList = authUser.roles
+    const infoRoles = document.getElementById("infoRoles")
+    const roleList = authUser.roles
     infoRoles.innerHTML = ' with roles: ' + roleOfUser(roleList)
 }
 
