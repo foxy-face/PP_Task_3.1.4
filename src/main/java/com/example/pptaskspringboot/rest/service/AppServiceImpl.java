@@ -2,13 +2,17 @@ package com.example.pptaskspringboot.rest.service;
 
 import com.example.pptaskspringboot.rest.dao.RoleRepozitory;
 import com.example.pptaskspringboot.rest.dao.UserRepozitory;
+import com.example.pptaskspringboot.rest.dto.UserDTO;
 import com.example.pptaskspringboot.rest.model.Role;
 import com.example.pptaskspringboot.rest.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AppServiceImpl implements AppService {
@@ -71,5 +75,20 @@ public class AppServiceImpl implements AppService {
     @Override
     public List<Role> getAllRoles() {
         return roleRepozitory.findAll();
+    }
+
+    public User converterUserDtoToUser(UserDTO userDTO) {
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setPassword(userDTO.getPassword());
+        user.setAge(userDTO.getAge());
+        user.setEmail(userDTO.getEmail());
+        Set<Role> roles = new HashSet<>();
+
+        roles.addAll(userDTO.getRoles());
+        user.setRoles(roles);
+        return user;
     }
 }

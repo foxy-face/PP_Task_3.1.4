@@ -1,5 +1,6 @@
 package com.example.pptaskspringboot.rest.controller.rest;
 
+import com.example.pptaskspringboot.rest.dto.UserDTO;
 import com.example.pptaskspringboot.rest.exception_handling.NoSuchUserException;
 import com.example.pptaskspringboot.rest.model.User;
 import com.example.pptaskspringboot.rest.service.AppService;
@@ -33,13 +34,15 @@ public class AdminRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addNewUser(@Valid @RequestBody User user) {
-        appService.add(user);
+    public ResponseEntity<User> addNewUser(@Valid @RequestBody UserDTO userDTO) {
+        User user = appService.converterUserDtoToUser(userDTO);
+        appService.add(appService.converterUserDtoToUser(userDTO));
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/users")
-    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
+    @PutMapping("/users")
+    public ResponseEntity<User> updateUser(@Valid @RequestBody UserDTO userDTO) {
+        User user = appService.converterUserDtoToUser(userDTO);
         appService.update(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -53,9 +56,4 @@ public class AdminRestController {
         appService.delete(id);
         return "User with id = " + id + " was delete";
     }
-
-//    @GetMapping("/users/authorized")
-//    public ResponseEntity<User> authUser(@AuthenticationPrincipal User user){
-//        return new ResponseEntity<>(user, HttpStatus.OK);
-//    }
 }

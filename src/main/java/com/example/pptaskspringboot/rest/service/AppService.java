@@ -1,5 +1,6 @@
 package com.example.pptaskspringboot.rest.service;
 
+import com.example.pptaskspringboot.rest.dto.UserDTO;
 import com.example.pptaskspringboot.rest.model.Role;
 import com.example.pptaskspringboot.rest.model.User;
 import java.util.List;
@@ -13,4 +14,5 @@ public interface AppService {
     User getUserByEmail(String email);
     Role getRoleByName(String roleName);
     List<Role> getAllRoles();
+    User converterUserDtoToUser(UserDTO userDTO);
 }
