@@ -13,10 +13,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    /*Его функция вернуть объект UserDetails по выбранному username (в нашем случае это email)
+    при помощи метода loadUserByUsername(String email) */
     private final UserDetailsService userDetailService;
+    /*  Его функция в случае успешного прохождения аутентификации направить аутентифицированного юзера
+    по соответсвующему пути, прописанному в  класссе SuccessUserHandler */
     private final SuccessUserHandler successUserHandler;
+    /*  Его функция взять пароль с формы аутентификации, и сравнить с закодированным и хранящися в БД
+    паролем, соответствующим данному username */
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -26,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
+// Делает проверку и возвращает объект UserDetails и его Authority
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder);
     }

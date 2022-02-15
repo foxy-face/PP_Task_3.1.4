@@ -49,8 +49,8 @@ public class User implements UserDetails {
     ))
     private Set<Role> roles;
 
-    public User() {
-    }
+//    public User() {
+//    }
 
     public User(String firstName, String lastName, String password, Integer age, String email,
                 Set<Role> roles) {
